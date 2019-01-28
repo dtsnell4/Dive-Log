@@ -6,7 +6,6 @@ import storeFormDataReducer from './storeFormDataReducer';
 import contactsReducer from './contactsReducer'
 import ActiveContactReducer from './activeContactReducer'
 
-console.log('storeFormDataReducer', storeFormDataReducer)
 const rootReducer = combineReducers({
   // form: formReducer,
   addDive: addDiveReducer,

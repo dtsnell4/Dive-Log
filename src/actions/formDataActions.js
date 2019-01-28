@@ -1,12 +1,9 @@
 import * as types from './actionTypes';
 
 function storeFormData(formData) {
-
-	console.log(formData, types)
-	debugger
   return {
-    type: 'CONTACT_SELECTED',
-    payload: formData
+    type: types.STORE_FORM_DATA,
+    payload: formData ? formData.values : null
   }
 }
 export default storeFormData;

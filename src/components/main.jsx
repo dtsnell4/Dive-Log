@@ -22,7 +22,7 @@ const Main = (props) => {
 
   const Home = (props) => {
     return (
-      <div class="container">
+      <div className="container">
         <h2 className="text-shadow text-white mt-3">Welcome to the My Dive Log App</h2>
         <p className="text-shadow text-white">Add a dive by clicking the button above </p>
       </div>

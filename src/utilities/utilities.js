@@ -1,5 +1,5 @@
 export const sortByParam = (propName) =>
-  	(a, b) => a[propName] === b[propName] ? 0 : a[propName] < b[propName] ? -1 : 1
+  	(a, b) => a[propName] === b[propName] ? 0 : a[propName] < b[propName] ? 1 : -1
 
 export const validateMe = (value) => {
 	console.log('hel', value);

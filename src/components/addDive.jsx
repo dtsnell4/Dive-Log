@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, ModalFooter, Modal, ModalHeader, ModalBody, Row, Col, FormGroup, Label } from 'reactstrap';//, Input, FormGroup, Label, Row, Col, CustomInput
+import { Button, ModalFooter, Modal, ModalHeader, ModalBody, Row, Col, FormGroup, Label, CustomInput } from 'reactstrap';//, Input, FormGroup, Label, Row, Col, CustomInput
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom'
 // import FormInput from './common/formInput';
-// import CustomInput from './common/customInput';
+import { RadioButtonGroup, RadioButton, Checkbox } from './common/customRadio';
 // import Background from '../images/fish.jpg';
 
 // import * as Utilities from '../utilities/utilities';
@@ -19,19 +19,17 @@ const AddDive = (props) => {
     nextDiveNumber,
     existingDive,
     validateDiveNumber,
+    storeForm,
   } = props;
 
-  // console.log(props)
   return (
     <div className="add-dive container mb-5">
 {/*      <div className="background-image" style={{backgroundImage: "url(" + Background + ")"}}></div>
-*/}      <h3 className="mt-2 text-shadow text-white">Enter A Dive</h3>
+*/}      <h3 className="mt-2 text-shadow text-white">Enter Dive Info</h3>
       <Formik
         enableReinitialize
         validateOnChange={false}
-        initialValues={{ 
-          diveNumber: nextDiveNumber,
-        }}
+        initialValues={storeForm ? storeForm : {diveNumber: nextDiveNumber}}
         validate={values => {
           return handleValidate(values);
         }}
@@ -50,235 +48,403 @@ const AddDive = (props) => {
         }) => (
           <Form>
             <FormGroup>
-              <Label className="text-shadow" for="diveNumber">Dive Number</Label>
-              <Field className="bubble form-control" validate={validateDiveNumber} type="number" name="diveNumber" id="diveNumber" placeholder="Dive Number" />
+              <Label for="diveNumber">Dive Number</Label>
+              {!nextDiveNumber && <input  className="bubble form-control" value="Getting next dive number..." disabled />}
+              {nextDiveNumber && <Field className="bubble form-control" validate={validateDiveNumber} type="number" name="diveNumber" id="diveNumber" placeholder="Dive Number" />}
               <ErrorMessage name="diveNumber">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
             </FormGroup>
             <FormGroup>
-              <Label className="text-shadow" for="diveDate">Date</Label>
+              <Label for="diveDate">Date</Label>
               <Field className="bubble form-control" label="" type="date" name="diveDate" id="diveDate" placeholder="Date" />
               <ErrorMessage name="diveDate">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
             </FormGroup>
             <FormGroup>
-              <Label className="text-shadow" for="diveLocation">Location</Label>
+              <Label for="diveLocation">Location/Site</Label>
               <Field className="bubble form-control" label="" type="text" name="diveLocation" id="diveLocation" placeholder="Dive Site Name" />
               <ErrorMessage name="diveLocation">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
             </FormGroup>
             <FormGroup>
-              <Label className="text-shadow" for="diveVisibility">Visibility</Label>
+              <Label for="diveBuddy">Buddy</Label>
+              <Field className="bubble form-control" label="" type="text" name="diveBuddy" id="diveBuddy" placeholder="Dive Buddy Name" />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="diveSurfaceInterval">Surface interval</Label>
+              <Field className="bubble form-control" type="text" name="diveSurfaceInterval" id="diveSurfaceInterval" />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="diveTimeIn">Time In</Label>
+              <Field className="bubble form-control" type="time" name="diveTimeIn" id="diveTimeIn" />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="diveTimeOut">Time Out</Label>
+              <Field className="bubble form-control" type="time" name="diveTimeOut" id="diveTimeOut" />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="diveBottomTime">Bottom Time</Label>
+              <Field className="bubble form-control" type="time" name="diveBottomTime" id="diveBottomTime" />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="diveSafetyStop">Safety Stop</Label>
+              <Field className="bubble form-control" type="time" name="diveSafetyStop" id="diveSafetyStop" />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="diveMaxDepth">Maximum Depth</Label>
+              <Field className="bubble form-control" type="number" name="diveMaxDepth" id="diveMaxDepth" />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="diveStartPressure">Start Pressure</Label>
+              <Field className="bubble form-control" type="number" name="diveStartPressure" id="diveStartPressure" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="diveStartPressure">End Pressure</Label>
+              <Field className="bubble form-control" type="number" name="diveEndPressure" id="diveEndPressure" />
+            </FormGroup>
+            <FormGroup>
+              <Label for="diveVisibility">Visibility</Label>
               <Field className="bubble form-control" label="" type="text" name="diveVisibility" id="diveVisibility" placeholder="Visibility" />
-              <ErrorMessage name="diveVisibility">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
             </FormGroup>
             <FormGroup>
-              <Label className="text-shadow" for="diveAirTemp">Air Temperature</Label>
-              <Field className="bubble form-control" label="" type="text" name="diveAirTemp" id="diveAirTemp" placeholder="Air Temperature" />
-              <ErrorMessage name="diveAirTemp">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
+              <Label for="diveAirTemp">Air Temperature</Label>
+              <Field className="bubble form-control" type="text" name="diveAirTemp" id="diveAirTemp" placeholder="Air Temperature" />
             </FormGroup>
             <FormGroup>
-              <Label className="text-shadow" for="diveSurfaceTemp">Surface Temperature</Label>
-              <Field className="bubble form-control" label="" type="text" name="diveSurfaceTemp" id="diveSurfaceTemp" placeholder="Surface Temperature" />
-              <ErrorMessage name="diveSurfaceTemp">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
+              <Label for="diveSurfaceTemp">Surface Temperature</Label>
+              <Field className="bubble form-control" type="text" name="diveSurfaceTemp" id="diveSurfaceTemp" placeholder="Surface Temperature" />
             </FormGroup>
             <FormGroup>
-              <Label className="text-shadow" for="diveBottomTemp">Bottom Temperature</Label>
-              <Field className="bubble form-control" label="" type="text" name="diveBottomTemp" id="diveBottomTemp" placeholder="Bottom Temperature" />
-              <ErrorMessage name="diveBottomTemp">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
+              <Label for="diveBottomTemp">Bottom Temperature</Label>
+              <Field className="bubble form-control" type="text" name="diveBottomTemp" id="diveBottomTemp" placeholder="Bottom Temperature" />
             </FormGroup>
-{/*            <Row>
-              <Col xs={{ size: 5 }}>
-                <Field className="bubble" label="Weight" type="text" name="diveWeight" id="diveWeight" placeholder="Weight" component={FormInput} />
-              </Col>
-              <Col xs={{ size: 7 }}>
-                <FormGroup>
-                  <Label className="text-shadow" for="diveWeightUnits">Units</Label>
-                  <div>
-                    <Field className="bubble" type="radio" name="diveWeightUnits" id="weightLbs" label="lb" inline component={CustomInput} />
-                    <Field className="bubble" type="radio" name="diveWeightUnits" id="weightKgs" label="kg" inline component={CustomInput} />
-                  </div>
-                </FormGroup>
-              </Col>
-            </Row>*/}
-    {/*        <FormGroup>
-              <Label for="diveExposure">Exposure Protection</Label>
+
+
+            <FormGroup>
+              <h3 className="text-shadow text-white mt-5">Equipment</h3>
               <Row>
-                <Col xs={{ size: 5}}>
-                  <CustomInput type="checkbox" id="diveExposureWetsuit" label="Wet suit" />
+                <Col xs={{ size: 6}}>
+                  <Label for="diveExposureWetsuit">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureWetsuit" name="diveExposureWetsuit" inline />
+                    Full suit
+                  </Label>
                 </Col>
-                <Col xs={{ size: 7}}>
-                  <Row>
-                    <Col xs={8}>
-                      <Input type="number" name="wetSuitMils" id="wetSuitMils" bsSize="sm" />
-                    </Col>
-                    <Label xs={4}>mil</Label>
-                  </Row>
+                <Col xs={{ size: 6}}>
+                  <Field className="bubble form-control form-control-mils" type="number" name="wetSuitMils" id="wetSuitMils" />
+                  <Label xs={4}>mm</Label>
                 </Col>
               </Row>
               <Row>
-                <Col xs={{ size: 5}}>
-                  <CustomInput type="checkbox" id="diveExposureDrysuit" label="Dry suit" />
+                <Col xs={{ size: 6}}>
+                  <Label for="diveExposureShorty">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureExposureShorty" name="diveExposureShorty" inline />
+                    Shorty
+                  </Label>
                 </Col>
-                <Col xs={{ size: 7}}>
-                  <Row>
-                    <Col xs={8}>
-                      <Input type="number" name="drySuitMils" id="drySuitMils" bsSize="sm" />
-                    </Col>
-                    <Label xs={4}>mil</Label>
-                  </Row>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={{ size: 5}}>
-                  <CustomInput type="checkbox" id="diveExposureBoots" label="Boots" />
-                </Col>
-                <Col xs={{ size: 7}}>
-                  <Row>
-                    <Col xs={8}>
-                      <Input type="number" name="bootsMils" id="bootsMils" bsSize="sm" />
-                    </Col>
-                    <Label xs={4}>mil</Label>
-                  </Row>
+                <Col xs={{ size: 6}}>
+                  <Field className="bubble form-control form-control-mils" type="number" name="shortyMils" id="shortyMils" />
+                  <Label xs={4}>mm</Label>
                 </Col>
               </Row>
               <Row>
-                <Col xs={{ size: 5}}>
-                  <CustomInput type="checkbox" id="diveExposureGloves" label="Gloves" />
+                <Col xs={{ size: 6}}>
+                  <Label for="diveExposureDrysuit">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureDrysuit" name="diveExposureDrysuit" inline />
+                    Dry suit
+                  </Label>
                 </Col>
-                <Col xs={{ size: 7}}>
-                  <Row>
-                    <Col xs={8}>
-                      <Input type="number" name="glovesMils" id="glovesMils" bsSize="sm" />
-                    </Col>
-                    <Label xs={4}>mil</Label>
-                  </Row>
+                <Col xs={{ size: 6}}>
+                  <Field className="bubble form-control form-control-mils" type="number" name="drySuitMils" id="drySuitMils" />
+                  <Label xs={4}>mm</Label>
                 </Col>
               </Row>
               <Row>
-                <Col xs={{ size: 5}}>
-                  <CustomInput type="checkbox" id="diveExposureHood" label="Hood" />
+                <Col xs={{ size: 6}}>
+                  <Label for="diveExposureSkin">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureSkin" name="diveExposureSkin" inline />
+                    Dive skin
+                  </Label>
                 </Col>
-                <Col xs={{ size: 7}}>
-                  <Row>
-                    <Col xs={8}>
-                      <Input type="number" name="bootsMils" id="bootsMils" bsSize="sm" />
-                    </Col>
-                    <Label xs={4}>mil</Label>
-                  </Row>
+                <Col xs={{ size: 6}}>
+                  <Field className="bubble form-control form-control-mils" type="number" name="skinDescription" id="skinDescription" placeholder="Description" />
+                  <Label xs={4}>&nbsp;</Label>
                 </Col>
               </Row>
-            </FormGroup>*/}
-    {/*        <Label className="text-shadow">Conditions</Label>
-            <FormGroup>
-              <Label for="diveWaterType">Water Type</Label>
-              <div>
-                <Field className="bubble" type="radio" name="diveWaterType" id="saltWater" label="Salt" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveWaterType" id="freshWater" label="Fresh" inline component={CustomInput} />
-              </div>
+              <Row>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveExposureBoots">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureBoots" name="diveExposureBoots" inline />
+                    Boots
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Field className="bubble form-control form-control-mils" type="number" name="bootsMils" id="bootsMils" />
+                  <Label xs={4}>mm</Label>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveExposureGloves">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureGloves" name="diveExposureGloves" inline />
+                    Gloves
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Field className="bubble form-control form-control-mils" type="number" name="glovesMils" id="glovesMils" />
+                  <Label xs={4}>mm</Label>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveExposureHood">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureHood" name="diveExposureHood" inline />
+                    Hood
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Field className="bubble form-control form-control-mils" type="number" name="hoodMils" id="hoodMils" />
+                  <Label xs={4}>mm</Label>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveExposureVest">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureVest" name="diveExposureVest" inline />
+                    Vest
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Field className="bubble form-control form-control-mils" type="number" name="vestMils" id="vestMils" />
+                  <Label xs={4}>mm</Label>
+                </Col>
+              </Row>  
             </FormGroup>
             <FormGroup>
-              <Label for="diveEntry">Entry</Label>
-              <div>
-                <Field type="radio" name="diveEntry" id="entryShore" label="Beach/Shore" inline component={CustomInput} />
-                <Field type="radio" name="diveEntry" id="entryBoat" label="Boat" inline component={CustomInput} />
-              </div>
-            </FormGroup>
-            <Label for="diveSurf">Surf/Wave Height</Label>
-            <Row>
-              <Col xs={{ size: 4 }}>
-                <Field className="bubble" type="number" name="diveSurf" id="diveSurf" component={FormInput} />
-              </Col>
-              <Col xs={{ size: 7 }}>
-                  <div>
-                    <Field className="bubble" type="radio" name="diveSurf" id="surfFeet" label="ft" inline component={CustomInput} />
-                    <Field className="bubble" type="radio" name="diveSurf" id="surfMeters" label="m" inline component={CustomInput} />
-                  </div>
-              </Col>
-            </Row>
-            <FormGroup>
-              <Label for="diveSurge">Surge</Label>
-              <div>
-                <Field className="bubble" type="radio" name="diveSurge" id="surgeNone" label="None" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveSurge" id="surgeMild" label="Mild" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveSurge" id="surgeModerate" label="Moderate" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveSurge" id="surgeStrong" label="Strong" inline component={CustomInput} />
-              </div>
+              <Label for="diveWeight">Weight</Label>
+              <Field className="bubble form-control" type="text" name="diveWeight" id="diveWeight" placeholder="Weight" />
             </FormGroup>
             <FormGroup>
-              <Label for="diveCurrent">Current</Label>
-              <div>
-                <Field className="bubble" type="radio" name="diveCurrent" id="currentNone" label="None" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveCurrent" id="currentMild" label="Mild" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveCurrent" id="currentModerate" label="Moderate" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveCurrent" id="currentStrong" label="Strong" inline component={CustomInput} />
-              </div>
+              <Label htmlFor="diveTankSize">Tank Size</Label>
+              <Field className="bubble form-control" type="number" name="diveTankSize" id="diveTankSize" />
             </FormGroup>
             <FormGroup>
-              <Label for="diveEnvironment">Environment</Label>
-              <div>
-                <Field className="bubble" type="radio" name="diveEnvironment" id="diveEnvironment" label="Wreck" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveEnvironment" id="diveEnvironment" label="Reef" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveEnvironment" id="diveEnvironment" label="Lake" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveEnvironment" id="diveEnvironment" label="River" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveEnvironment" id="diveEnvironment" label="Quarry" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveEnvironment" id="diveEnvironment" label="Intracoastal" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveEnvironment" id="diveEnvironment" label="Pool" inline component={CustomInput} />
-              </div>
+              <RadioButtonGroup id="diveTankType" label="Tank Type" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup}>
+                <Row>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveTankType" id="tankTypeSteel" label="Steel" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveTankType" id="tankTypeAlum" label="Aluminum" />
+                  </Col>
+                </Row>
+              </RadioButtonGroup>
             </FormGroup>
             <FormGroup>
-              <Field className="bubble" type="time" name="diveTimeIn" id="diveTimeIn" label="Time In" component={FormInput} />
+              <RadioButtonGroup id="diveGasType" label="Gas Type" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup}>
+                <Row>
+                  <Col xs={4} md={3}>
+                    <Field component={RadioButton} name="diveGasType" id="diveGasTypeAir" label="Air" />
+                  </Col>
+                  <Col xs={4} md={3}>
+                    <Field component={RadioButton} name="diveGasType" id="diveGasTypeNitrox" label="Nitrox" />
+                  </Col>
+                  <Col xs={4} md={3} className="diveNitroxMix">
+                    <Field className="bubble form-control " type="number" name="diveNitroxMix" id="diveNitroxMix" placeholder="Mix" />
+                  </Col>
+                </Row>
+              </RadioButtonGroup>
+            </FormGroup>
+
+
+            <h3 className="text-shadow text-white mt-5">Conditions</h3>
+            <FormGroup>              
+              <RadioButtonGroup id="diveWaterType" label="Water Type" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup}>
+                <Row>
+                <Col xs={6} md={3}>
+                  <Field component={RadioButton} name="diveWaterType" id="saltWater" label="Salt" />
+                </Col>
+                <Col xs={6} md={3}>
+                  <Field component={RadioButton} name="diveWaterType" id="freshWater" label="Fresh" />
+                </Col>
+                </Row>
+              </RadioButtonGroup>
             </FormGroup>
             <FormGroup>
-              <Field className="bubble" type="time" name="diveTimeOut" id="diveTimeOut" label="Time Out" component={FormInput} />
+              <Label htmlFor="diveSurf">Surf/Wave Height</Label>
+              <Field className="bubble form-control" label="Surf/Wave Height" type="number" name="diveSurf" id="diveSurf" />
             </FormGroup>
-            <Label for="diveTankSize">Tank Size</Label>
-            <Row>
-              <Col xs={{ size: 4 }}>
-                <FormGroup>
-                  <Field className="bubble" type="number" name="diveTankSize" id="diveTankSize" component={FormInput} />
-                </FormGroup>
-              </Col>
-              <Col xs={{ size: 8 }}>
-                <div>
-                  <Field className="bubble" type="radio" name="tankSize" id="tankSizeCf" label="cf" inline component={CustomInput} />
-                  <Field className="bubble" type="radio" name="tankSize" id="tankSizeLitres" label="Liters" inline component={CustomInput} />
-                </div>
-              </Col>
-            </Row>
-            <Label for="diveTankSize">Tank Type</Label>
             <FormGroup>
-              <div>
-                <Field className="bubble" type="radio" name="diveTankSize" id="tankTypeSteel" label="Steel" inline component={CustomInput} />
-                <Field className="bubble" type="radio" name="diveTankSize" id="tankTypeAlum" label="Alum" inline component={CustomInput} />
-              </div>
+              <RadioButtonGroup id="diveSurge" label="Surge" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup} >
+                <Row>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveSurge" id="surgeNone" label="None" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveSurge" id="surgeMild" label="Mild" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveSurge" id="surgeModerate" label="Moderate" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveSurge" id="surgeStrong" label="Strong" />
+                  </Col>
+                </Row>
+              </RadioButtonGroup>
             </FormGroup>
-            <Label for="diveStartPressure">Start Pressure</Label>
-            <Row>
-              <Col xs={{ size: 4 }}>
-                  <Field className="bubble" type="number" name="diveStartPressure" id="diveStartPressure" component={FormInput} />
-              </Col>
-              <Col xs={{ size: 8 }}>
-                <FormGroup>
-                  <div>
-                    <Field className="bubble" type="radio" name="startPressure" id="startPressurePsi" label="PSI" inline component={CustomInput} />
-                    <Field className="bubble" type="radio" name="startPressure" id="startPressureBar" label="BAR" inline component={CustomInput} />
-                  </div>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Label for="diveStartPressure">End Pressure</Label>
-            <Row>
-              <Col xs={{ size: 4 }}>
-                  <Field className="bubble" type="number" name="diveEndPressure" id="diveEndPressure" component={FormInput} />
-              </Col>
-              <Col xs={{ size: 8 }}>
-                  <div>
-                    <Field className="bubble" type="radio" name="endPressure" id="endPressurePsi" label="PSI" inline component={CustomInput} />
-                    <Field className="bubble" type="radio" name="endPressure" id="endPressureBar" label="BAR" inline component={CustomInput} />
-                  </div>
-              </Col>
-            </Row>
-            <Field className="bubble" label="Notes" type="textarea" name="diveNotes" id="diveNotes" placeholder="Add your thoughts about the dive here" component={FormInput} />
-    */}
-            {/*<Input type="submit" value="Save Dive" color="primary" disabled={submitting} />*/}
+            <FormGroup>
+              <RadioButtonGroup id="diveCurrent" label="Current" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup}>
+                <Row>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveCurrent" id="currentNone" label="None" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveCurrent" id="currentMild" label="Mild" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveCurrent" id="currentModerate" label="Moderate" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveCurrent" id="currentStrong" label="Strong" />
+                  </Col>
+                </Row>
+              </RadioButtonGroup>
+            </FormGroup>
+
+
+            <h3 className="text-shadow text-white mt-5">Dive Characteristics</h3>
+            <FormGroup>
+              <RadioButtonGroup id="diveEnvironment" label="Environment" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup}>
+                <Row>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveEnvironment" id="diveEnvOcean" label="Ocean" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveEnvironment" id="diveEnvLake" label="Lake" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveEnvironment" id="diveEnvSpring" label="Spring" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveEnvironment" id="diveEnvRiver" label="River" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveEnvironment" id="diveEnvQuarry" label="Quarry" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveEnvironment" id="diveEnvPool" label="Pool" />
+                  </Col>
+                  <Col xs={6} md={3}>
+                    <Field component={RadioButton} name="diveEnvironment" id="diveEnvIntra" label="Intracoastal" />
+                  </Col>
+                </Row>
+              </RadioButtonGroup>
+            </FormGroup>
+            <FormGroup>
+              <Label>Dive Type</Label>
+              <Row>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveTypeBoat">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeBoat" name="diveTypeBoat" inline />
+                    Boat
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveTypeBeach">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeBeach" name="diveTypeBeach" inline />
+                    Beach
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveTypeDrift">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeDrift" name="diveTypeDrift" inline />
+                    Drift
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveTypeDeep">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeDeep" name="diveTypeDeep" inline />
+                    Deep
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveTypeNight">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeNight" name="diveTypeNight" inline />
+                    Night
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveTypeAltitude">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeAltitude" name="diveTypeAltitude" inline />
+                    Altitude
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveTypeIce">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeIce" name="diveTypeIce" inline />
+                    Ice
+                  </Label>
+                </Col>
+              </Row>
+            </FormGroup>
+
+            <FormGroup>
+              <Label>Activities</Label>
+              <Row>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivityWreck">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityWreck" name="diveActivityWreck" inline />
+                    Wreck
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivityReef">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityReef" name="diveActivityReef" inline />
+                    Reef
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivityTraining">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityTraining" name="diveActivityTraining" inline />
+                    Training
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivityPhotography">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityPhotography" name="diveActivityPhotography" inline />
+                    Photo
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivitySpear">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivitySpear" name="diveActivitySpear" inline />
+                    Spearfishing
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivityLobster">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityLobster" name="diveActivyLobster" inline />
+                    Lobstering
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivitySearch">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivitySearch" name="diveActivitySearch" inline />
+                    Search & Recovery
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivityReasearch">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityReasearch" name="diveActivyReasearch" inline />
+                    Research
+                  </Label>
+                </Col>
+              </Row>
+            </FormGroup>
+
+
+            <FormGroup>
+              <Label for="diveNotes">Notes</Label>
+              <Field className="bubble form-control" component="textarea" name="diveNotes" id="diveNotes" placeholder="Add your thoughts about the dive here" rows="6" />
+              <ErrorMessage name="diveNumber">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
+            </FormGroup>
+            
             <div className=" text-center">
               <Button className="save-dive-button bubble mb-3" type="submit" disabled={submitting}><span>Save</span></Button>
             </div>
@@ -287,13 +453,15 @@ const AddDive = (props) => {
       </Formik>
       <div>
         <Modal isOpen={modalOpen} toggle={toggleModal} backdrop >
-          <ModalHeader>Dive Number exists</ModalHeader>
+          <ModalHeader>Duplicate Dive Number</ModalHeader>
           <ModalBody>
-            You already have a dive with dive number {existingDive}.  Would you like to view it?
+            <p>You already have a dive with dive number {existingDive}.  You can only have a dive number once in your log.</p>
+            <p>The next dive in your log is #{nextDiveNumber}.</p>
+            <p>Would you like to view dive #{existingDive}?</p>
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={toggleModal}>No</Button>{' '}
-            <Link to={`/divedetails/${existingDive}`} >
+            <Link onClick={toggleModal} to={`/divedetails/${existingDive}`} >
               <Button color="primary">Yes</Button>
             </Link>
           </ModalFooter>
@@ -303,11 +471,8 @@ const AddDive = (props) => {
   );
 }
 
-// export default AddDive;
 
 function mapStateToProps(state) {
-    // console.log(state)
-
   return {
     initialValues: state.storeForm
   }

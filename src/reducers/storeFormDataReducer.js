@@ -1,16 +1,14 @@
 import * as types from '../actions/actionTypes';
 
-const initialState = {
-	diveNumber: '22',
-	diveLocation: '',
-	divedate: '', 
-}
-export default function(state = initialState, action) {
-	console.log(action.payload)
-	debugger;
+// const initialState = {
+// 	diveNumber: '',
+// 	diveLocation: '',
+// 	divedate: '', 
+// }
+export default function(state = null, action) {
   switch (action.type) {
     case types.STORE_FORM_DATA:
-    	return [...state, action.payload];
+    	return action.payload;
 	default:
     	return state;
   } 

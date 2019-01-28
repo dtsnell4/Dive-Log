@@ -28,7 +28,7 @@ class DiveListComponent extends React.Component {
 	  const sortByParam = sortBy.toLowerCase();
 	  this.setState({
 	    sortBy,
-	    diveList: [...this.state.diveList.sort(Utilities.sortByParam(sortByParam))],
+	    diveList: [...this.state.diveList.sort(Utilities.sortByParam(sortByParam, "asc"))],
 	  });
 	}
   
@@ -39,7 +39,6 @@ class DiveListComponent extends React.Component {
 	    const value2 = {number: parseInt(value.diveData.diveNumber), location: value.diveData.diveLocation, date: value.diveData.diveDate};
 	    storedDiveData.push(value2);
 		}).then(function() {
-      console.log(storedDiveData)
   		storedDiveData.sort(Utilities.sortByParam(that.state.sortBy));
 	    that.setState({ diveList: storedDiveData });
 		}).catch(function(err) {
@@ -47,11 +46,7 @@ class DiveListComponent extends React.Component {
 		});
   }
 
-  // componentHasMounted() {
-  //   console.log(this.state, this.props);
-  // }
   render() {
-    console.log('render: ', this.state);
     return <DiveListPresentational diveList={this.state.diveList} select={this.select} dropdownOpen={this.state.dropdownOpen} toggleDropdown={this.toggleDropdown} />;
   }
 }

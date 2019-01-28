@@ -3,8 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LocalForage from 'localforage';
 import storeFormData from '../actions/formDataActions';
-import selectContact from '../actions/selectContactActions'
-
 import AddDivePresentational from '../components/addDive';
 // import * as Utilities from '../utilities/utilities';
 
@@ -22,18 +20,21 @@ class AddDiveComponent extends React.Component {
     
     const that = this;
     LocalForage.keys().then(function(keys) {
-      function sortNumber(a,b) {
-        return a - b;
+      let nextDive = null;
+      if (keys.length) {
+        function sortNumber(a,b) {
+          return a - b;
+        }
+        keys.sort(sortNumber);
+        const length = keys.length;
+        nextDive = parseInt(keys[length - 1]) + 1;
+      } else {
+        nextDive = 1;
       }
-      keys.sort(sortNumber);
-      const length = keys.length;
-      const nextDive = parseInt(keys[length - 1]) + 1;
       that.setState({ nextDiveNumber: nextDive });    
     }).catch(function(err) {
       console.log('Error: Cannot find last dive number :', err);
     });
-
-    console.log(this)
   }
 
   toggleModal() {
@@ -46,9 +47,10 @@ class AddDiveComponent extends React.Component {
     if (!num) return;
     const that = this;
     num = num.toString();
+
     LocalForage.getItem(num).then(function(value) {
       //Dive Number exists, alert user.
-      if (value && (value.diveData.diveNumber === num)) {
+      if (value && (parseInt(value.diveData.diveNumber) === parseInt(num))) {
         that.setState({ existingDive: num })
         that.toggleModal();
         // return 'You already have a dive with that number';
@@ -57,8 +59,7 @@ class AddDiveComponent extends React.Component {
   }
 
   handleValidate = (values) => {
-    console.log(values)
-    storeFormData({values});
+    this.props.storeFormData({values});
 
     let errors = {};
     if (!values.diveNumber) {
@@ -71,16 +72,16 @@ class AddDiveComponent extends React.Component {
       errors.diveDate = 'A date is Required';
     }
 
-    console.log(this)
     return errors;
   }
 
-  handleSaveData = (data) => {
+  handleSaveData = (data, setSubmitting, resetForm) => {
     // See if dive number exisits
     const that = this;
     LocalForage.getItem(data.diveNumber).then(function(value) {
       //Dive Number exists, alert user.
-      if (value && value.diveNumber === data.diveNumber) {
+      if (value && value.diveData.diveNumber === data.diveNumber) {
+        // debugger
         that.setState({diveNumber: data.diveNumber})
         that.toggleModal();
         return null;
@@ -88,8 +89,10 @@ class AddDiveComponent extends React.Component {
       that.setState({
         diveData: data
       }, () => {
-        LocalForage.setItem(that.state.diveData.diveNumber, that.state).then(function (value) {
-          that.props.history.push(`/`);
+        LocalForage.setItem(that.state.diveData.diveNumber.toString(), that.state).then(function (value) {
+          that.props.storeFormData(null);
+          resetForm({});
+          that.props.history.push(`/mydives`);
         }).catch(function(err) {
           console.log('Saving Error: ',err);
         });
@@ -101,7 +104,6 @@ class AddDiveComponent extends React.Component {
   }
 
   render() {
-    // console.log(this);
     return <AddDivePresentational 
       handleSaveData={this.handleSaveData}
       handleValidate={this.handleValidate} 
@@ -132,7 +134,6 @@ class AddDiveComponent extends React.Component {
 //   };
 // }
 function mapStateToProps(state) {
-  console.log(state)
   return {
     storeForm: state.storeForm
   };

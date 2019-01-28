@@ -3,13 +3,22 @@ import {connect} from 'react-redux'
 import selectContact from '../actions/selectContactActions'
 import ContactActive from './contactActive'
 import {bindActionCreators} from 'redux'
+
 class ContactList extends Component {
+
+  handleContact = (contact) => {
+    debugger;
+    this.props.selectContact(contact);
+  }
+
   renderList() {
     return this.props.contacts.map((contact) => {
       return (
         <li
           key={contact.phone}
-          onClick={() => this.props.selectContact(contact)}
+          //onClick={() => this.props.selectContact(contact)}
+          onClick={() => this.handleContact(contact)}
+
           className='list-group-item'>{contact.name}</li>
       );
     });
