@@ -1,5 +1,7 @@
 @import './font-awesome.min.css';
 
+$primary-color: #0100a2;
+
 .background-image {
 	position: fixed;
 	top: 0;
@@ -10,7 +12,7 @@
 	z-index: -1;
 }
 .navbar {
-	background-color: #0100a2 !important;
+	background-color: $primary-color !important;
 	&.navbar-dark {
 		padding: 0;
 	}
@@ -45,6 +47,21 @@
 	    right: 28px;
 	    top: 8px;
 	}
+	.fa.fa-plus {
+		transition: all .5s;
+		&.collapse-open {
+			transform: rotate(225deg);
+		}
+	}
+	.collapsing {
+		transition-duration: .5s;
+	}
+	.sigCanvas {
+		width: 100%;
+		max-width: 600px;
+		background: rgba(255, 255, 255, 0.7);
+		border-radius: 5px;
+	}
 }
 .text-shadow {
 	text-shadow: 1px 2px 5px #000;
@@ -69,10 +86,7 @@
 		    border-top-right-radius: 0rem;
 		}
 	}
-	// .badge-info {
-	//     color: #fff;
-	//     background-color: #4b99f5;
-	// }
+
 	.dive-no {
 		font-weight: 500;
 	}
@@ -93,6 +107,87 @@
 		font-weight: 500;
 		color: #444;
 		margin-bottom: 0;
+	}
+	.diagram-box {
+		position: relative;
+	    display: inline-block;
+		border: 1px solid #444;
+	    padding: 10px 3px 0;
+	    min-width: 50px;
+	    min-height: 40px;
+	    margin-bottom: 10px;
+	    text-transform: uppercase;
+		label {
+			position: absolute;
+			top:-8px;
+			left: 5px;
+			padding: 0 3px;
+			font-size: .7rem;
+			color: #444;
+			background-color: #fbf9f1;
+		}
+	}
+	.dive-profile {
+		max-width: 500px;
+		margin: 0 auto;
+	}
+	.tbt {
+		border: 1px solid #797979;
+		padding: 0 5px;
+		max-width: 80px;
+		div:last-child {
+			border-top: 1px solid #444;
+		}
+	}
+	.diagram {
+		.row .col-4 {
+			height: 100px;
+			-webkit-transform: skew(-10deg,0deg);
+  			transform: skew(-10deg,0deg);
+		}
+		.first {
+			border-top:2px solid #444;
+			margin-left: -9px;
+		}
+		.second {
+			border-left: 2px solid #444;
+			border-right: 2px solid #444;
+			border-bottom: 2px solid #444;
+		}
+		.third {
+			border-top: 2px solid #444;
+		}
+		.max-depth {
+			position:absolute;
+			bottom:0;
+			right: 10px;
+			text-align: center;
+			label {
+				border-top: 1px solid #444;
+				font-size: .9rem;
+			}
+		}
+		.bottom-time {
+			position: absolute;
+		    bottom: 0;
+		    width: 100%;
+		    padding-right: 26px;
+			div {
+				text-align: center;
+			}
+			label {
+				border-top: 1px solid #444;
+				font-size: .9rem;
+			}
+		}
+		.safety-stop {
+			text-align: center;
+			float: left;
+			label {
+				border-top: 1px solid #444;
+				font-size: .9rem;
+			}
+		}
 	}
 	.block {
 		border: 2px solid #444;
@@ -115,7 +210,7 @@
 	}
 }
 
-.form-control.bubble {
+.form-control.bubble, .collapse .bubble, .collapsing .bubble {
     -webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;

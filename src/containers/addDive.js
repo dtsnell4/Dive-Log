@@ -12,10 +12,12 @@ class AddDiveComponent extends React.Component {
     this.state = {
       diveData: {},
       modalOpen: false,
+      collapseOpen: false,
     };
 
     this.handleSaveData = this.handleSaveData.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.toggleCollapse = this.toggleCollapse.bind(this);
     this.validateDiveNumber = this.validateDiveNumber.bind(this);
     
     const that = this;
@@ -40,6 +42,12 @@ class AddDiveComponent extends React.Component {
   toggleModal() {
     this.setState(prevState => ({
       modalOpen: !prevState.modalOpen
+    }));
+  }
+
+  toggleCollapse() {
+    this.setState(prevState => ({
+      collapseOpen: !prevState.collapseOpen
     }));
   }
 
@@ -110,7 +118,9 @@ class AddDiveComponent extends React.Component {
       nextDiveNumber={this.state.nextDiveNumber}
       existingDive={this.state.existingDive}
       modalOpen={this.state.modalOpen} 
-      toggleModal={this.toggleModal} 
+      toggleModal={this.toggleModal}
+      collapseOpen={this.state.collapseOpen}
+      toggleCollapse={this.toggleCollapse} 
       validateDiveNumber={this.validateDiveNumber}
       // storeFormData={this.storeFormData}
       {...this.props} 

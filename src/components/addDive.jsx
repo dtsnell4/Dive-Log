@@ -1,9 +1,11 @@
 import React from 'react';
-import { Button, ModalFooter, Modal, ModalHeader, ModalBody, Row, Col, FormGroup, Label, CustomInput } from 'reactstrap';//, Input, FormGroup, Label, Row, Col, CustomInput
+import { Button, ModalFooter, Modal, ModalHeader, ModalBody, Row, Col, FormGroup, Label, Collapse } from 'reactstrap';//, Input, FormGroup, Label, Row, Col, CustomInput
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom'
 // import FormInput from './common/formInput';
 import { RadioButtonGroup, RadioButton, Checkbox } from './common/customRadio';
+import SignaturePad from './common/signaturePad';
+
 // import Background from '../images/fish.jpg';
 
 // import * as Utilities from '../utilities/utilities';
@@ -15,7 +17,9 @@ const AddDive = (props) => {
     handleValidate,
     submitting,
     toggleModal,
+    toggleCollapse,
     modalOpen,
+    collapseOpen,
     nextDiveNumber,
     existingDive,
     validateDiveNumber,
@@ -44,9 +48,13 @@ const AddDive = (props) => {
           handleChange,
           handleBlur,
           isSubmitting,
-          isValidating
+          isValidating,
+          signature,
         }) => (
           <Form>
+
+            <SignaturePad signature={signature}/>
+
             <FormGroup>
               <Label for="diveNumber">Dive Number</Label>
               {!nextDiveNumber && <input  className="bubble form-control" value="Getting next dive number..." disabled />}
@@ -69,7 +77,7 @@ const AddDive = (props) => {
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveSurfaceInterval">Surface interval</Label>
-              <Field className="bubble form-control" type="text" name="diveSurfaceInterval" id="diveSurfaceInterval" />
+              <Field className="bubble form-control" type="text" name="diveSurfaceInterval" id="diveSurfaceInterval" placeholder="hh:mm" />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveTimeIn">Time In</Label>
@@ -81,15 +89,15 @@ const AddDive = (props) => {
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveBottomTime">Bottom Time</Label>
-              <Field className="bubble form-control" type="time" name="diveBottomTime" id="diveBottomTime" />
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="diveSafetyStop">Safety Stop</Label>
-              <Field className="bubble form-control" type="time" name="diveSafetyStop" id="diveSafetyStop" />
+              <Field className="bubble form-control" type="text" name="diveBottomTime" id="diveBottomTime" />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveMaxDepth">Maximum Depth</Label>
               <Field className="bubble form-control" type="number" name="diveMaxDepth" id="diveMaxDepth" />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="diveSafetyStop">Safety Stop</Label>
+              <Field className="bubble form-control" type="text" name="diveSafetyStop" id="diveSafetyStop" />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveStartPressure">Start Pressure</Label>
@@ -115,6 +123,38 @@ const AddDive = (props) => {
               <Label for="diveBottomTemp">Bottom Temperature</Label>
               <Field className="bubble form-control" type="text" name="diveBottomTemp" id="diveBottomTemp" placeholder="Bottom Temperature" />
             </FormGroup>
+
+            <div>
+              <Button color="success" className="text-shadow text-white" onClick={toggleCollapse}>
+                {/*{collapseOpen ? <i className="fa fa-caret-up"></i> : <i className="fa fa-caret-down"></i>} Add Repetitive Dive Info*/}
+                Add Repetitive Dive Info <i className={`fa fa-plus${collapseOpen ? " collapse-open" : ""}`}></i>
+              </Button>
+              <Collapse isOpen={collapseOpen}>
+                <div className="bubble p-3 my-3">
+                  <FormGroup>
+                    <Label htmlFor="diveStartPressureGroup">Start Pressure Group</Label>
+                    <Field className="bubble form-control text-uppercase"  text-uppercasetype="text" name="diveStartPressureGroup" id="diveStartPressureGroup" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="diveEndPressureGroup">End Pressure Group</Label>
+                    <Field className="bubble form-control text-uppercase" type="text" name="diveEndPressureGroup" id="diveEndPressureGroup" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="diveRNT">Residual Nitrogen Time (RNT)</Label>
+                    <Field className="bubble form-control" type="number" name="diveRNT" id="diveRNT" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="diveABT">Actual Bottom Time (ABT)</Label>
+                    <Field className="bubble form-control" type="number" name="diveABT" id="diveABT" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label htmlFor="diveTBT">Total Bottom Time (TBT)</Label>
+                    <Field className="bubble form-control" type="number" name="diveTBT" id="diveTBT" />
+                  </FormGroup>
+                </div>
+              </Collapse>
+            </div>
+
 
 
             <FormGroup>
@@ -412,15 +452,15 @@ const AddDive = (props) => {
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
-                  <Label for="diveActivitySpear">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivitySpear" name="diveActivitySpear" inline />
-                    Spearfishing
-                  </Label>
-                </Col>
-                <Col xs={{ size: 6}}>
                   <Label for="diveActivityLobster">
                     <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityLobster" name="diveActivyLobster" inline />
                     Lobstering
+                  </Label>
+                </Col>
+                <Col xs={{ size: 6}}>
+                  <Label for="diveActivityReasearch">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityReasearch" name="diveActivyReasearch" inline />
+                    Research
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
@@ -430,9 +470,9 @@ const AddDive = (props) => {
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
-                  <Label for="diveActivityReasearch">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityReasearch" name="diveActivyReasearch" inline />
-                    Research
+                  <Label for="diveActivitySpear">
+                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivitySpear" name="diveActivitySpear" inline />
+                    Spear fishing
                   </Label>
                 </Col>
               </Row>
