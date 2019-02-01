@@ -6,45 +6,48 @@ class SignaturePad extends React.Component {
 	constructor(props) {
 	    super(props);
 
-	    this.state = {
-		  signature: null
-		};
-
 	    this.state  = {trimmedDataURL: null};
 	    this.sigPad = {}
 
 	    this.clear = this.clear.bind(this);
+	    this.trim = this.trim.bind(this);
+	    console.log(this)
 	}
 
 	clear = () => {
-		console.log("Clear")
 		this.sigPad.clear()
 	}
 
 	trim = () => {
 	    this.setState(
-	    	{trimmedDataURL: this.sigPad.getTrimmedCanvas().toDataURL('image/png')}, () => {
-	    		console.log(this.state)
+	    	{trimmedDataURL: this.sigPad.getTrimmedCanvas().toDataURL('image/svg+xml')}, () => {
+      		this.props.form.setFieldValue('signature', this.state.trimmedDataURL);
 	    	}
 	    )
 	}
 
+
+
   	render () {
   		return (
   			<div>
-		  		<SignatureCanvas 
-		  			canvasProps={{ height: 300, className: 'sigCanvas'}}
-		  			ref={(ref) => { this.sigPad = ref }} />
-		  		<Button color="danger" size="sm" className="clearButton" onClick={this.clear}>
-		          	Screw That
-		        </Button>
-		        <Button color="success" size="sm" className="saveSig float-right" onClick={this.trim}>
-		        	Good Enough
-		        </Button>
-		        {this.state.trimmedDataURL
-			        ? <img className="kk"
-			          src={this.state.trimmedDataURL} />
-			        : null}
+  				{!this.state.trimmedDataURL &&
+				  	<div className="mb-3">
+				  		<SignatureCanvas 
+				  			canvasProps={{ height: 400, className: 'sigCanvas'}}
+				  			ref={(ref) => { this.sigPad = ref }} />
+				  		<Button color="danger" size="sm" className="clearButton" onClick={this.clear}>
+				          Ugh, Undo!
+				        </Button>
+				        <Button color="success" size="sm" className="saveSig float-right" onClick={this.trim}>
+				        	Good Enough
+				        </Button>
+			        </div>
+			    }
+		        {this.props.field.value
+			        ? <div className="bubble signature-image"><img alt="Signature" src={this.props.field.value} /></div>
+			        : null
+			    }
 	        </div>
 	    )
   	}

@@ -55,7 +55,7 @@ const Main = (props) => {
             <Route path="/mydives" component={DiveList} />
             <Route path="/adddive" component={AddDive} />
             <Route path="/divedetails/:divenum" component={DiveDetails} />
-
+            <Route path="/editDive/:divenum" component={AddDive} />
             <Route path="/contacts" component={Contacts} />
 
           </div>

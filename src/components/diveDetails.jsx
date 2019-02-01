@@ -1,18 +1,20 @@
 import React from 'react';
-import { Row, Col} from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
+import Moment from 'react-moment';
 
 const DiveDetails = (props) => {
   const {
     dive
   } = props;
-  console.log(dive)
+
   return (
     <div className="container py-3 dive-details">
       {Object.keys(dive).length > 0 &&
         <div>
+          <Button className="btn-edit" color="success" size="sm">Edit</Button>
           <div className="mb-3">
             <span><label>Dive No.</label> <u>{dive.diveData.diveNumber}</u></span>
-            <span className="float-right"><label>Date:</label> <u>{dive.diveData.diveDate}</u></span>
+            <span className="float-right"><label>Date:</label> <u><Moment format="M/D/YYYY" date={dive.diveData.diveDate} /></u></span>
           </div>
           
           <h4><label>Location:</label> <u>{dive.diveData.diveLocation}</u></h4>
@@ -56,7 +58,7 @@ const DiveDetails = (props) => {
                 </Col>
                 <Col xs={4} className="third">
                   <div className="safety-stop">
-                    <div>{dive.diveData.diveSafetyStop}</div>
+                    <div>{dive.diveData.diveSafetyStop ? <span>{dive.diveData.diveSafetyStop}</span> : <span>&nbsp;</span>}</div>
                     <label>Safety Stop</label>
                   </div>
                 </Col>
@@ -65,10 +67,10 @@ const DiveDetails = (props) => {
             <Row className="my-4">
               <Col xs={8}>
                 <div className="d-inline-block pr-4">
-                  <label>Time In:</label> <u>{dive.diveData.diveTimeIn}</u>
+                  <label>Time In:</label> <u><Moment parse="h:mm" format="h:mm a" date={dive.diveData.diveTimeIn} /></u>
                 </div>
                 <div className="d-inline-block">
-                  <label>Time Out:</label> <u>{dive.diveData.diveTimeOut}</u>
+                  <label>Time Out:</label> <u><Moment parse="h:mm" format="h:mm a" date={dive.diveData.diveTimeOut} /></u>
                 </div>
               </Col>
               <Col xs={4}>
@@ -317,11 +319,44 @@ const DiveDetails = (props) => {
               </Col>
             </Row>
           </div>
-          <div className="block">
-            <div><label>Buddy:</label> <u>{dive.diveData.diveBuddy}</u></div>
-          </div>
 
           <div className="block"><label>Notes:</label> <p><u>{dive.diveData.diveNotes}</u></p></div>
+
+          <div>
+            <label>Verification:</label> 
+            <div className="signature">
+              {dive.diveData.signature && <img alt="Signature" src={dive.diveData.signature} />}
+            </div>
+            {dive.diveData.diveBuddy}
+            <Row>
+              <Col xs={4}>
+                <label>
+                  {dive.diveData.diveBuddyType === "Buddy" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  Buddy
+                </label>
+              </Col>
+              <Col xs={4} className="d-block d-sm-none">
+                <label>
+                  {dive.diveData.diveBuddyType === "Divemaster" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  DM
+                </label>
+              </Col>
+              <Col xs={4} className="d-none d-sm-block">
+                <label>
+                  {dive.diveData.diveBuddyType === "Divemaster" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  Divemaster
+                </label>
+              </Col>
+              <Col xs={4}>
+                <label>
+                  {dive.diveData.diveBuddyType === "Instructor" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  Instructor
+                </label>
+              </Col>
+            </Row>
+            <div>Certification No. <u>7938724</u></div>
+          </div>
+
 
         </div>
       }

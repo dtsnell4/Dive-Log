@@ -62,6 +62,18 @@ $primary-color: #0100a2;
 		background: rgba(255, 255, 255, 0.7);
 		border-radius: 5px;
 	}
+	.signature-image {
+		padding: 20px;
+		img {
+			width: 100%;
+			filter: invert(1);
+		}
+	}
+	.equipment-container {
+		.row {
+			min-height: 44px;
+		}
+	}
 }
 .text-shadow {
 	text-shadow: 1px 2px 5px #000;
@@ -107,6 +119,11 @@ $primary-color: #0100a2;
 		font-weight: 500;
 		color: #444;
 		margin-bottom: 0;
+	}
+	.btn-edit {
+		position: absolute;
+	    right: 10px;
+	    top: 5px;
 	}
 	.diagram-box {
 		position: relative;
@@ -208,9 +225,48 @@ $primary-color: #0100a2;
 	.fa {
 		margin-right: 5px;
 	}
+	.signature {
+		padding: 20px 20px 5px 20px;
+		border-bottom: 1px solid #444;
+		min-height: 70px;
+		img {
+			width: 100%;
+		}
+	}
 }
 
-.form-control.bubble, .collapse .bubble, .collapsing .bubble {
+#search {
+	position: relative;
+	input {
+	    position: absolute;
+	    right: -9px;
+	    top: 5px;
+	    transition: all .5s;
+	    width: 0;
+	    opacity: 0;
+	    color: #fff;
+	    z-index: 1;
+	    &:focus {
+	    	width: 207px;
+	    	opacity: 1;
+	    	pointer-events: auto;
+	    }
+	    &::placeholder {
+	    	color: #ccc;
+	    }
+	}
+	.fa-search {
+	    pointer-events: none;
+		position: relative;
+		z-index: 2;
+		font-size: 1.3rem;
+	}	
+}	
+
+.form-control.bubble, 
+.collapse .bubble, 
+.collapsing .bubble,
+.signature-image.bubble {
     -webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
 	border-radius: 20px;
@@ -351,26 +407,50 @@ $primary-color: #0100a2;
 	background-color: rgba(237, 241, 245, 0.39);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+.timepicker {
+	color: #fff;
+	position: relative;
+	.position-absolute {
+	    margin-top: -2rem;
+        margin-left: 8px;
+		input {
+			border: none;
+			width: 30px;
+			background: none;
+			color: #fff;
+			&:first-child {
+				text-align: right;
+				width: 25px;
+				padding-right: 3px
+			}
+		}
+		input:nth-of-type(2) {
+			padding-left: 3px;
+			width: 25px;
+		}
+	}
 
-// .App-link {
-//   color: #61dafb;
+}
+// .App-header {
+//   background-color: #282c34;
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: calc(10px + 2vmin);
+//   color: white;
 // }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+// // .App-link {
+// //   color: #61dafb;
+// // }
+
+// @keyframes App-logo-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }

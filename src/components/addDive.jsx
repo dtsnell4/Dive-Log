@@ -20,20 +20,24 @@ const AddDive = (props) => {
     toggleCollapse,
     modalOpen,
     collapseOpen,
-    nextDiveNumber,
+    diveData,
     existingDive,
     validateDiveNumber,
     storeForm,
+    nextDiveNumber,
+    editting,
   } = props;
 
   return (
     <div className="add-dive container mb-5">
 {/*      <div className="background-image" style={{backgroundImage: "url(" + Background + ")"}}></div>
 */}      <h3 className="mt-2 text-shadow text-white">Enter Dive Info</h3>
+      
+
       <Formik
         enableReinitialize
         validateOnChange={false}
-        initialValues={storeForm ? storeForm : {diveNumber: nextDiveNumber}}
+        initialValues={storeForm ? storeForm : diveData}
         validate={values => {
           return handleValidate(values);
         }}
@@ -52,13 +56,10 @@ const AddDive = (props) => {
           signature,
         }) => (
           <Form>
-
-            <SignaturePad signature={signature}/>
-
             <FormGroup>
               <Label for="diveNumber">Dive Number</Label>
-              {!nextDiveNumber && <input  className="bubble form-control" value="Getting next dive number..." disabled />}
-              {nextDiveNumber && <Field className="bubble form-control" validate={validateDiveNumber} type="number" name="diveNumber" id="diveNumber" placeholder="Dive Number" />}
+              {!diveData.diveNumber && !editting && <input  className="bubble form-control" value="Getting next dive number..." disabled />}
+              {diveData.diveNumber && <Field className="bubble form-control" validate={validateDiveNumber} type="number" name="diveNumber" id="diveNumber" placeholder="Dive Number" />}
               <ErrorMessage name="diveNumber">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
             </FormGroup>
             <FormGroup>
@@ -72,16 +73,12 @@ const AddDive = (props) => {
               <ErrorMessage name="diveLocation">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
             </FormGroup>
             <FormGroup>
-              <Label for="diveBuddy">Buddy</Label>
-              <Field className="bubble form-control" label="" type="text" name="diveBuddy" id="diveBuddy" placeholder="Dive Buddy Name" />
-            </FormGroup>
-            <FormGroup>
               <Label htmlFor="diveSurfaceInterval">Surface interval</Label>
               <Field className="bubble form-control" type="text" name="diveSurfaceInterval" id="diveSurfaceInterval" placeholder="hh:mm" />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveTimeIn">Time In</Label>
-              <Field className="bubble form-control" type="time" name="diveTimeIn" id="diveTimeIn" />
+              <Field className="bubble form-control" type="time" name="diveTimeIn" id="diveTimeIn" /> 
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveTimeOut">Time Out</Label>
@@ -89,7 +86,7 @@ const AddDive = (props) => {
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveBottomTime">Bottom Time</Label>
-              <Field className="bubble form-control" type="text" name="diveBottomTime" id="diveBottomTime" />
+              <Field className="bubble form-control" type="number" name="diveBottomTime" id="diveBottomTime" />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveMaxDepth">Maximum Depth</Label>
@@ -125,12 +122,16 @@ const AddDive = (props) => {
             </FormGroup>
 
             <div>
-              <Button color="success" className="text-shadow text-white" onClick={toggleCollapse}>
+              <Button color="success" className="text-white" onClick={toggleCollapse}>
                 {/*{collapseOpen ? <i className="fa fa-caret-up"></i> : <i className="fa fa-caret-down"></i>} Add Repetitive Dive Info*/}
                 Add Repetitive Dive Info <i className={`fa fa-plus${collapseOpen ? " collapse-open" : ""}`}></i>
               </Button>
               <Collapse isOpen={collapseOpen}>
                 <div className="bubble p-3 my-3">
+                  <FormGroup>
+                    <a className="float-left btn btn-info btn-sm" target="_blank" rel="noopener noreferrer" href="https://divetables.com.au/files/2012/07/How_To_Dive-Tables_SSI_Table_1.png">Dive Table 1 <i className="fa fa-external-link"></i></a>
+                    <a className="float-right btn btn-info btn-sm" target="_blank" rel="noopener noreferrer" href="https://divetables.com.au/files/2012/07/How_To_Dive-Tables_SSI_Table_2.png">Dive Table 2 <i className="fa fa-external-link"></i></a>
+                  </FormGroup>
                   <FormGroup>
                     <Label htmlFor="diveStartPressureGroup">Start Pressure Group</Label>
                     <Field className="bubble form-control text-uppercase"  text-uppercasetype="text" name="diveStartPressureGroup" id="diveStartPressureGroup" />
@@ -157,103 +158,118 @@ const AddDive = (props) => {
 
 
 
-            <FormGroup>
+            <FormGroup className="equipment-container">
               <h3 className="text-shadow text-white mt-5">Equipment</h3>
               <Row>
                 <Col xs={{ size: 6}}>
+                  <Label for="diveExposureSkin">
+                    <Field component={Checkbox} value={values.diveExposureSkin} className="bubble" type="checkbox" id="diveExposureSkin" name="diveExposureSkin" inline />
+                    Dive skin
+                  </Label>
+                </Col>
+                {values.diveExposureSkin &&
+                  <Col xs={{ size: 6}}>
+                    <Field className="bubble form-control mt-1" type="text" name="skinDescription" id="skinDescription" placeholder="Description" />
+                  </Col>
+                }
+              </Row>
+              <Row>
+                <Col xs={{ size: 6}}>
                   <Label for="diveExposureWetsuit">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureWetsuit" name="diveExposureWetsuit" inline />
+                    <Field component={Checkbox} value={values.diveExposureWetsuit} className="bubble" type="checkbox" id="diveExposureWetsuit" name="diveExposureWetsuit" inline />
                     Full suit
                   </Label>
                 </Col>
-                <Col xs={{ size: 6}}>
-                  <Field className="bubble form-control form-control-mils" type="number" name="wetSuitMils" id="wetSuitMils" />
-                  <Label xs={4}>mm</Label>
-                </Col>
+                {values.diveExposureWetsuit &&
+                  <Col xs={{ size: 6}}>
+                    <Field className="bubble form-control form-control-mils" type="number" name="wetSuitMils" id="wetSuitMils" />
+                    <Label xs={4}>mm</Label>
+                  </Col>
+                }
               </Row>
               <Row>
                 <Col xs={{ size: 6}}>
                   <Label for="diveExposureShorty">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureExposureShorty" name="diveExposureShorty" inline />
+                    <Field component={Checkbox} value={values.diveExposureShorty} className="bubble" type="checkbox" id="diveExposureShorty" name="diveExposureShorty" inline />
                     Shorty
                   </Label>
                 </Col>
-                <Col xs={{ size: 6}}>
-                  <Field className="bubble form-control form-control-mils" type="number" name="shortyMils" id="shortyMils" />
-                  <Label xs={4}>mm</Label>
-                </Col>
+                {values.diveExposureShorty &&
+                  <Col xs={{ size: 6}}>
+                    <Field className="bubble form-control form-control-mils" type="number" name="shortyMils" id="shortyMils" />
+                    <Label xs={4}>mm</Label>
+                  </Col>
+                }
               </Row>
               <Row>
                 <Col xs={{ size: 6}}>
                   <Label for="diveExposureDrysuit">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureDrysuit" name="diveExposureDrysuit" inline />
+                    <Field component={Checkbox} value={values.diveExposureDrysuit} className="bubble" type="checkbox" id="diveExposureDrysuit" name="diveExposureDrysuit" inline />
                     Dry suit
                   </Label>
                 </Col>
-                <Col xs={{ size: 6}}>
-                  <Field className="bubble form-control form-control-mils" type="number" name="drySuitMils" id="drySuitMils" />
-                  <Label xs={4}>mm</Label>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs={{ size: 6}}>
-                  <Label for="diveExposureSkin">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureSkin" name="diveExposureSkin" inline />
-                    Dive skin
-                  </Label>
-                </Col>
-                <Col xs={{ size: 6}}>
-                  <Field className="bubble form-control form-control-mils" type="number" name="skinDescription" id="skinDescription" placeholder="Description" />
-                  <Label xs={4}>&nbsp;</Label>
-                </Col>
+                {values.diveExposureDrysuit &&
+                  <Col xs={{ size: 6}}>
+                    <Field className="bubble form-control form-control-mils" type="number" name="drySuitMils" id="drySuitMils" />
+                    <Label xs={4}>mm</Label>
+                  </Col>
+                }
               </Row>
               <Row>
                 <Col xs={{ size: 6}}>
                   <Label for="diveExposureBoots">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureBoots" name="diveExposureBoots" inline />
+                    <Field component={Checkbox} value={values.diveExposureBoots} className="bubble" type="checkbox" id="diveExposureBoots" name="diveExposureBoots" inline />
                     Boots
                   </Label>
                 </Col>
-                <Col xs={{ size: 6}}>
-                  <Field className="bubble form-control form-control-mils" type="number" name="bootsMils" id="bootsMils" />
-                  <Label xs={4}>mm</Label>
-                </Col>
+                {values.diveExposureBoots &&
+                  <Col xs={{ size: 6}}>
+                    <Field className="bubble form-control form-control-mils" type="number" name="bootsMils" id="bootsMils" />
+                    <Label xs={4}>mm</Label>
+                  </Col>
+                }
               </Row>
               <Row>
                 <Col xs={{ size: 6}}>
                   <Label for="diveExposureGloves">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureGloves" name="diveExposureGloves" inline />
+                    <Field component={Checkbox} value={values.diveExposureGloves} className="bubble" type="checkbox" id="diveExposureGloves" name="diveExposureGloves" inline />
                     Gloves
                   </Label>
                 </Col>
-                <Col xs={{ size: 6}}>
-                  <Field className="bubble form-control form-control-mils" type="number" name="glovesMils" id="glovesMils" />
-                  <Label xs={4}>mm</Label>
-                </Col>
+                {values.diveExposureGloves &&
+                  <Col xs={{ size: 6}}>
+                    <Field className="bubble form-control form-control-mils" type="number" name="glovesMils" id="glovesMils" />
+                    <Label xs={4}>mm</Label>
+                  </Col>
+                }
               </Row>
               <Row>
                 <Col xs={{ size: 6}}>
                   <Label for="diveExposureHood">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureHood" name="diveExposureHood" inline />
+                    <Field component={Checkbox} value={values.diveExposureHood} className="bubble" type="checkbox" id="diveExposureHood" name="diveExposureHood" inline />
                     Hood
                   </Label>
                 </Col>
-                <Col xs={{ size: 6}}>
-                  <Field className="bubble form-control form-control-mils" type="number" name="hoodMils" id="hoodMils" />
-                  <Label xs={4}>mm</Label>
-                </Col>
+                {values.diveExposureHood &&
+                  <Col xs={{ size: 6}}>
+                    <Field className="bubble form-control form-control-mils" type="number" name="hoodMils" id="hoodMils" />
+                    <Label xs={4}>mm</Label>
+                  </Col>
+                }
               </Row>
               <Row>
                 <Col xs={{ size: 6}}>
                   <Label for="diveExposureVest">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveExposureVest" name="diveExposureVest" inline />
+                    <Field component={Checkbox} value={values.diveExposureVest} className="bubble" type="checkbox" id="diveExposureVest" name="diveExposureVest" inline />
                     Vest
                   </Label>
                 </Col>
-                <Col xs={{ size: 6}}>
-                  <Field className="bubble form-control form-control-mils" type="number" name="vestMils" id="vestMils" />
-                  <Label xs={4}>mm</Label>
-                </Col>
+                {values.diveExposureVest &&
+                  <Col xs={{ size: 6}}>
+                    <Field className="bubble form-control form-control-mils" type="number" name="vestMils" id="vestMils" />
+                    <Label xs={4}>mm</Label>
+                  </Col>
+                }
               </Row>  
             </FormGroup>
             <FormGroup>
@@ -381,43 +397,43 @@ const AddDive = (props) => {
               <Row>
                 <Col xs={{ size: 6}}>
                   <Label for="diveTypeBoat">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeBoat" name="diveTypeBoat" inline />
+                    <Field component={Checkbox} value={values.diveTypeBoat} className="bubble" type="checkbox" id="diveTypeBoat" name="diveTypeBoat" inline />
                     Boat
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveTypeBeach">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeBeach" name="diveTypeBeach" inline />
+                    <Field component={Checkbox} value={values.diveTypeBeach} className="bubble" type="checkbox" id="diveTypeBeach" name="diveTypeBeach" inline />
                     Beach
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveTypeDrift">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeDrift" name="diveTypeDrift" inline />
+                    <Field component={Checkbox} value={values.diveTypeDrift} className="bubble" type="checkbox" id="diveTypeDrift" name="diveTypeDrift" inline />
                     Drift
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveTypeDeep">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeDeep" name="diveTypeDeep" inline />
+                    <Field component={Checkbox} value={values.diveTypeDeep} className="bubble" type="checkbox" id="diveTypeDeep" name="diveTypeDeep" inline />
                     Deep
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveTypeNight">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeNight" name="diveTypeNight" inline />
+                    <Field component={Checkbox} value={values.diveTypeNight} className="bubble" type="checkbox" id="diveTypeNight" name="diveTypeNight" inline />
                     Night
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveTypeAltitude">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeAltitude" name="diveTypeAltitude" inline />
+                    <Field component={Checkbox} value={values.diveTypeAltitude} className="bubble" type="checkbox" id="diveTypeAltitude" name="diveTypeAltitude" inline />
                     Altitude
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveTypeIce">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveTypeIce" name="diveTypeIce" inline />
+                    <Field component={Checkbox} value={values.diveTypeIce} className="bubble" type="checkbox" id="diveTypeIce" name="diveTypeIce" inline />
                     Ice
                   </Label>
                 </Col>
@@ -429,62 +445,96 @@ const AddDive = (props) => {
               <Row>
                 <Col xs={{ size: 6}}>
                   <Label for="diveActivityWreck">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityWreck" name="diveActivityWreck" inline />
+                    <Field component={Checkbox} value={values.diveActivityWreck} className="bubble" type="checkbox" id="diveActivityWreck" name="diveActivityWreck" inline />
                     Wreck
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveActivityReef">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityReef" name="diveActivityReef" inline />
+                    <Field component={Checkbox} value={values.diveActivityReef} className="bubble" type="checkbox" id="diveActivityReef" name="diveActivityReef" inline />
                     Reef
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveActivityTraining">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityTraining" name="diveActivityTraining" inline />
+                    <Field component={Checkbox} value={values.diveActivityTraining} className="bubble" type="checkbox" id="diveActivityTraining" name="diveActivityTraining" inline />
                     Training
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveActivityPhotography">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityPhotography" name="diveActivityPhotography" inline />
+                    <Field component={Checkbox} value={values.diveActivityPhotography} className="bubble" type="checkbox" id="diveActivityPhotography" name="diveActivityPhotography" inline />
                     Photo
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveActivityLobster">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityLobster" name="diveActivyLobster" inline />
+                    <Field component={Checkbox} value={values.diveActivityLobster} className="bubble" type="checkbox" id="diveActivityLobster" name="diveActivyLobster" inline />
                     Lobstering
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveActivityReasearch">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivityReasearch" name="diveActivyReasearch" inline />
+                    <Field component={Checkbox} value={values.diveActivityReasearch} className="bubble" type="checkbox" id="diveActivityReasearch" name="diveActivyReasearch" inline />
                     Research
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveActivitySearch">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivitySearch" name="diveActivitySearch" inline />
+                    <Field component={Checkbox} value={values.diveActivitySearch} className="bubble" type="checkbox" id="diveActivitySearch" name="diveActivitySearch" inline />
                     Search & Recovery
                   </Label>
                 </Col>
                 <Col xs={{ size: 6}}>
                   <Label for="diveActivitySpear">
-                    <Field component={Checkbox} className="bubble" type="checkbox" id="diveActivitySpear" name="diveActivitySpear" inline />
+                    <Field component={Checkbox} value={values.diveActivitySpear} className="bubble" type="checkbox" id="diveActivitySpear" name="diveActivitySpear" inline />
                     Spear fishing
                   </Label>
                 </Col>
               </Row>
             </FormGroup>
 
-
             <FormGroup>
               <Label for="diveNotes">Notes</Label>
               <Field className="bubble form-control" component="textarea" name="diveNotes" id="diveNotes" placeholder="Add your thoughts about the dive here" rows="6" />
               <ErrorMessage name="diveNumber">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
             </FormGroup>
-            
+
+            <FormGroup>
+              <Label for="diveBuddy">Buddy</Label>
+              <Field className="bubble form-control" label="" type="text" name="diveBuddy" id="diveBuddy" placeholder="Dive Buddy Name" />
+            </FormGroup>
+            {values.diveBuddy &&
+              <div>
+                <FormGroup>
+                  <Field className="form-control" label="" name="signature" id="signature" value={values.signature} component={SignaturePad} />
+                </FormGroup>
+                <FormGroup>
+                  <RadioButtonGroup id="diveEnvironment" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup}>
+                    <Row>
+                      <Col xs={6}>
+                        <Field component={RadioButton} name="diveBuddyType" id="diveIsBuddy" label="Buddy" />
+                      </Col>
+                      <Col xs={6}>
+                        <Field component={RadioButton} name="diveBuddyType" id="diveDM" label="Divemaster" />
+                      </Col>
+                      <Col xs={6}>
+                        <Field component={RadioButton} name="diveBuddyType" id="diveInstructor" label="Instructor" />
+                      </Col>
+                      {(values.diveBuddyType === "Divemaster" || values.diveBuddyType === "Instructor") &&
+                        <Col xs={6}>
+                          <FormGroup>
+                            <Field className="bubble form-control" name="diveBuddyCert" id="diveBuddyCert" placeholder="Certification No." />
+                          </FormGroup>
+                        </Col>
+                      }
+                    </Row>
+                  </RadioButtonGroup>
+                </FormGroup>
+              </div>
+            }
+
+
             <div className=" text-center">
               <Button className="save-dive-button bubble mb-3" type="submit" disabled={submitting}><span>Save</span></Button>
             </div>
@@ -496,7 +546,12 @@ const AddDive = (props) => {
           <ModalHeader>Duplicate Dive Number</ModalHeader>
           <ModalBody>
             <p>You already have a dive with dive number {existingDive}.  You can only have a dive number once in your log.</p>
-            <p>The next dive in your log is #{nextDiveNumber}.</p>
+            { editting 
+              ?
+              <p>You are editting #{editting}.</p>
+              :
+              <p>The next dive in your log is #{nextDiveNumber}.</p>
+            }
             <p>Would you like to view dive #{existingDive}?</p>
           </ModalBody>
           <ModalFooter>
