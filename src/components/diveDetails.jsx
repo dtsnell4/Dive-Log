@@ -13,22 +13,22 @@ const DiveDetails = (props) => {
         <div>
           <Button className="btn-edit" color="success" size="sm">Edit</Button>
           <div className="mb-3">
-            <span><label>Dive No.</label> <u>{dive.diveData.diveNumber}</u></span>
-            <span className="float-right"><label>Date:</label> <u><Moment format="M/D/YYYY" date={dive.diveData.diveDate} /></u></span>
+            <span><label>Dive No.</label> <u>{dive.diveNumber}</u></span>
+            <span className="float-right"><label>Date:</label> <u><Moment format="M/D/YYYY" date={dive.diveDate} /></u></span>
           </div>
           
-          <h4><label>Location:</label> <u>{dive.diveData.diveLocation}</u></h4>
+          <h4><label>Location:</label> <u>{dive.diveLocation}</u></h4>
 
           <div className="dive-profile">
             <Row className="mt-5">
                 <Col xs={5} className="text-right">
                   <span className="diagram-box text-center">
                     <label>SI</label>
-                    {dive.diveData.diveSurfaceInterval}
+                    {dive.diveSurfaceInterval}
                   </span>
                   <span className="diagram-box text-center">
                     <label>PG</label>
-                    {dive.diveData.diveStartPressureGroup}
+                    {dive.diveStartPressureGroup}
                   </span>
                 </Col>
                 <Col xs={3}>
@@ -36,7 +36,7 @@ const DiveDetails = (props) => {
                 <Col xs={4}>
                   <span className="diagram-box text-center">
                     <label>PG</label>
-                    {dive.diveData.diveEndPressureGroup}
+                    {dive.diveEndPressureGroup}
                   </span>
                 </Col>
             </Row>
@@ -44,21 +44,21 @@ const DiveDetails = (props) => {
               <Row>
                 <Col xs={4} className="first">
                   <div className="max-depth">
-                    <div>{dive.diveData.diveMaxDepth}</div>
+                    <div>{dive.diveMaxDepth}</div>
                     <label>Max Depth</label>
                   </div>
                 </Col>
                 <Col xs={4} className="second">
                   <div className="bottom-time">
                     <div>
-                      <div>{dive.diveData.diveBottomTime}</div>
+                      <div>{dive.diveBottomTime}</div>
                       <label>Bottom Time</label>
                     </div>
                   </div>
                 </Col>
                 <Col xs={4} className="third">
                   <div className="safety-stop">
-                    <div>{dive.diveData.diveSafetyStop ? <span>{dive.diveData.diveSafetyStop}</span> : <span>&nbsp;</span>}</div>
+                    <div>{dive.diveSafetyStop ? <span>{dive.diveSafetyStop}</span> : <span>&nbsp;</span>}</div>
                     <label>Safety Stop</label>
                   </div>
                 </Col>
@@ -67,66 +67,66 @@ const DiveDetails = (props) => {
             <Row className="my-4">
               <Col xs={8}>
                 <div className="d-inline-block pr-4">
-                  <label>Time In:</label> <u><Moment parse="h:mm" format="h:mm a" date={dive.diveData.diveTimeIn} /></u>
+                  <label>Time In:</label> <u><Moment parse="h:mm" format="h:mm a" date={dive.diveTimeIn} /></u>
                 </div>
                 <div className="d-inline-block">
-                  <label>Time Out:</label> <u><Moment parse="h:mm" format="h:mm a" date={dive.diveData.diveTimeOut} /></u>
+                  <label>Time Out:</label> <u><Moment parse="h:mm" format="h:mm a" date={dive.diveTimeOut} /></u>
                 </div>
               </Col>
               <Col xs={4}>
                 <div className="tbt">
-                  <div>RNT <span className="float-right">{dive.diveData.diveRNT ? dive.diveData.diveRNT : "--"}</span></div>
-                  <div>ABT+ <span className="float-right">{dive.diveData.diveABT ? dive.diveData.diveABT : "--"}</span></div>
-                  <div>TBT= <span className="float-right">{dive.diveData.diveTBT ? dive.diveData.diveTBT : "--"}</span></div>
+                  <div>RNT <span className="float-right">{dive.diveRNT ? dive.diveRNT : "--"}</span></div>
+                  <div>ABT+ <span className="float-right">{dive.diveABT ? dive.diveABT : "--"}</span></div>
+                  <div>TBT= <span className="float-right">{dive.diveTBT ? dive.diveTBT : "--"}</span></div>
                 </div>
               </Col>
             </Row>
           </div>
 
           <h4>Dive Characteristics</h4>
-          <div><label>Environment:</label> <u>{dive.diveData.diveEnvironment ? dive.diveData.diveEnvironment : "Beach"}</u></div>
+          <div><label>Environment:</label> <u>{dive.diveEnvironment ? dive.diveEnvironment : "Beach"}</u></div>
           <div className="block">
             <div className="before-block">Dive Type</div>
             <Row>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveTypeBoat ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveTypeBoat ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Boat
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveTypeBeach ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveTypeBeach ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Beach
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveTypeDrift ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveTypeDrift ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Drift
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveTypeDeep ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveTypeDeep ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Deep
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveTypeNight ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveTypeNight ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Night
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveTypeAltitude ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveTypeAltitude ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Altitude
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveTypeIce ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveTypeIce ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Ice
                 </label>
               </Col>
@@ -138,49 +138,49 @@ const DiveDetails = (props) => {
             <Row>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveActivityWreck ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveActivityWreck ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Wreck
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveActivityReef ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveActivityReef ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Reef
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveActivityTraining ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveActivityTraining ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Training
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveActivityPhotography ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveActivityPhotography ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Photo
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveActivitySpear ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveActivitySpear ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Spearfishing
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveActivityLobster ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveActivityLobster ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Lobstering
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveActivitySearch ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveActivitySearch ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Search & Recovery
                 </label>
               </Col>
               <Col xs={6} md={3}>
                 <label>
-                  {dive.diveData.diveActivityResearch ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveActivityResearch ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Research
                 </label>
               </Col>
@@ -191,34 +191,34 @@ const DiveDetails = (props) => {
             <div className="before-block">Conditions</div>
             <Row>
               <Col>
-                <div><label>Water Type:</label> <u>{dive.diveData.diveWaterType}</u></div>
-                <div><label>Air Temp:</label> <u>{dive.diveData.diveAirTemp}</u></div>
-                <div><label>Surface Temp:</label> <u>{dive.diveData.diveSurfaceTemp}</u></div>
-                <div><label>Bottom Temp:</label> <u>{dive.diveData.diveBottomTemp}</u></div>
+                <div><label>Water Type:</label> <u>{dive.diveWaterType}</u></div>
+                <div><label>Air Temp:</label> <u>{dive.diveAirTemp}</u></div>
+                <div><label>Surface Temp:</label> <u>{dive.diveSurfaceTemp}</u></div>
+                <div><label>Bottom Temp:</label> <u>{dive.diveBottomTemp}</u></div>
               </Col>
               <Col>
-                <div><label>Visibility:</label> <u>{dive.diveData.diveVisibility}</u></div>
-                <div><label>Surf/Seas:</label> <u>{dive.diveData.diveSurf}</u></div>
-                <div><label>Current:</label> <u>{dive.diveData.diveCurrent}</u></div>
-                <div><label>Surge:</label> <u>{dive.diveData.diveSurge}</u></div>
+                <div><label>Visibility:</label> <u>{dive.diveVisibility}</u></div>
+                <div><label>Surf/Seas:</label> <u>{dive.diveSurf}</u></div>
+                <div><label>Current:</label> <u>{dive.diveCurrent}</u></div>
+                <div><label>Surge:</label> <u>{dive.diveSurge}</u></div>
               </Col>
             </Row>
           </div>
 
           <h4>Equipment</h4>
-          <div><label>Weight:</label> <u>{dive.diveData.diveWeight}</u></div>
+          <div><label>Weight:</label> <u>{dive.diveWeight}</u></div>
           <div className="block">
             <div className="before-block">Tank</div>
             <Row>
               <Col>
-                <div><label>Tank Type:</label> <u>{dive.diveData.diveTankType ? dive.diveData.diveTankType : "Steel"}</u></div>
-                <div><label>Tank Size:</label> <u>{dive.diveData.diveTankSize}</u></div>
-                <div><label>Gas:</label> <u>{dive.diveData.diveGasType}</u></div>
+                <div><label>Tank Type:</label> <u>{dive.diveTankType ? dive.diveTankType : "Steel"}</u></div>
+                <div><label>Tank Size:</label> <u>{dive.diveTankSize}</u></div>
+                <div><label>Gas:</label> <u>{dive.diveGasType}</u></div>
               </Col>
               <Col>
-                <div><label>Start Pressure:</label> <u>{dive.diveData.diveStartPressure}</u></div>
-                <div><label>End Pressure:</label> <u>{dive.diveData.diveEndPressure}</u></div>
-                <div><label>Mix:</label> <u>{dive.diveData.diveNitroxMix}%</u></div>
+                <div><label>Start Pressure:</label> <u>{dive.diveStartPressure}</u></div>
+                <div><label>End Pressure:</label> <u>{dive.diveEndPressure}</u></div>
+                <div><label>Mix:</label> <u>{dive.diveNitroxMix}%</u></div>
               </Col>
             </Row>
           </div>
@@ -229,45 +229,45 @@ const DiveDetails = (props) => {
                 <Row>
                   <Col xs={5}>
                     <label>
-                      {dive.diveData.diveExposureWetsuit ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                      {dive.diveExposureWetsuit ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                       Wetsuit
                     </label>
                   </Col>
                   <Col>
-                    {dive.diveData.wetSuitMils && <u>{dive.diveData.wetSuitMils} mm</u>}
+                    {dive.wetSuitMils && <u>{dive.wetSuitMils} mm</u>}
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={5}>
                     <label>
-                      {dive.diveData.diveExposureShorty ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                      {dive.diveExposureShorty ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                       Shorty
                     </label>
                   </Col>
                   <Col>
-                    {dive.diveData.shortyMils && <u>{dive.diveData.shortyMils} mm</u>}
+                    {dive.shortyMils && <u>{dive.shortyMils} mm</u>}
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={5}>
                     <label>
-                      {dive.diveData.diveExposureDrysuit ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                      {dive.diveExposureDrysuit ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                       Dry suit
                     </label>
                   </Col>
                   <Col>
-                    {dive.diveData.drySuitMils && <u>{dive.diveData.drySuitMils} mm</u>}
+                    {dive.drySuitMils && <u>{dive.drySuitMils} mm</u>}
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={5}>
                     <label>
-                      {dive.diveData.diveExposureSkin ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                      {dive.diveExposureSkin ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                       Dive Skin
                     </label>
                   </Col>
                   <Col>
-                    {dive.diveData.skinDescription && <u>{dive.diveData.skinDescription}</u>}
+                    {dive.skinDescription && <u>{dive.skinDescription}</u>}
                   </Col>
                 </Row>
               </Col>
@@ -275,81 +275,81 @@ const DiveDetails = (props) => {
                 <Row>
                   <Col xs={5}>
                     <label>
-                      {dive.diveData.diveExposureBoots ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                      {dive.diveExposureBoots ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                       Boots
                     </label>
                   </Col>
                   <Col>
-                    {dive.diveData.bootsMils && <u>{dive.diveData.bootsMils} mm</u>}
+                    {dive.bootsMils && <u>{dive.bootsMils} mm</u>}
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={5}>
                     <label>
-                      {dive.diveData.diveExposureGloves ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                      {dive.diveExposureGloves ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                       Gloves
                     </label>
                   </Col>
                   <Col>
-                    {dive.diveData.glovesMils && <u>{dive.diveData.glovesMils} mm</u>}
+                    {dive.glovesMils && <u>{dive.glovesMils} mm</u>}
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={5}>
                     <label>
-                      {dive.diveData.diveExposureHood ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                      {dive.diveExposureHood ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                       Hood
                     </label>
                   </Col>
                   <Col>
-                    {dive.diveData.hoodMils && <u>{dive.diveData.hoodMils} mm</u>}
+                    {dive.hoodMils && <u>{dive.hoodMils} mm</u>}
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={5}>
                     <label>
-                      {dive.diveData.diveExposureVest ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                      {dive.diveExposureVest ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                       Vest
                     </label>
                   </Col>
                   <Col>
-                    {dive.diveData.vestMils && <u>{dive.diveData.vestMils} mm</u>}
+                    {dive.vestMils && <u>{dive.vestMils} mm</u>}
                   </Col>
                 </Row>
               </Col>
             </Row>
           </div>
 
-          <div className="block"><label>Notes:</label> <p><u>{dive.diveData.diveNotes}</u></p></div>
+          <div className="block"><label>Notes:</label> <p><u>{dive.diveNotes}</u></p></div>
 
           <div>
             <label>Verification:</label> 
             <div className="signature">
-              {dive.diveData.signature && <img alt="Signature" src={dive.diveData.signature} />}
+              {dive.signature && <img alt="Signature" src={dive.signature} />}
             </div>
-            {dive.diveData.diveBuddy}
+            {dive.diveBuddy}
             <Row>
               <Col xs={4}>
                 <label>
-                  {dive.diveData.diveBuddyType === "Buddy" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveBuddyType === "Buddy" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Buddy
                 </label>
               </Col>
               <Col xs={4} className="d-block d-sm-none">
                 <label>
-                  {dive.diveData.diveBuddyType === "Divemaster" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveBuddyType === "Divemaster" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   DM
                 </label>
               </Col>
               <Col xs={4} className="d-none d-sm-block">
                 <label>
-                  {dive.diveData.diveBuddyType === "Divemaster" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveBuddyType === "Divemaster" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Divemaster
                 </label>
               </Col>
               <Col xs={4}>
                 <label>
-                  {dive.diveData.diveBuddyType === "Instructor" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+                  {dive.diveBuddyType === "Instructor" ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
                   Instructor
                 </label>
               </Col>

@@ -3,34 +3,10 @@ import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import DiveList from '../containers/diveList';
 import AddDive from '../containers/addDive';
 import DiveDetails from '../containers/diveDetails';
+import Home from '../containers/home';
 import Background from '../images/sharks.jpg';
 
-
-import Contacts from '../containers/contacts';
-
-
 const Main = (props) => {
-  // const {
-  //   goBack,
-  //   submitting,
-  //   loaded,
-  //   invalid,
-  //   saveBuilding,
-  //   handleSubmit,
-  //   showBannerName,
-  // } = props;
-
-  const Home = (props) => {
-    return (
-      <div className="container">
-        <h2 className="text-shadow text-white mt-3">Welcome to the My Dive Log App</h2>
-        <p className="text-shadow text-white">Add a dive by clicking the button above </p>
-      </div>
-    )
-  };
-
-  // const rndm = Math.random(100) * 100 - 100;
-  // console.log(rndm);
 
   return (
     <Router>
@@ -56,48 +32,11 @@ const Main = (props) => {
             <Route path="/adddive" component={AddDive} />
             <Route path="/divedetails/:divenum" component={DiveDetails} />
             <Route path="/editDive/:divenum" component={AddDive} />
-            <Route path="/contacts" component={Contacts} />
-
           </div>
         </div>
       </div>
     </Router>
   );
 }
-
-
-// function Topics({ match }) {
-//   return (
-//     <div>
-//       <h2>Topics</h2>
-//       <ul>
-//         <li>
-//           <Link to={`${match.url}/rendering`}>Rendering with React</Link>
-//         </li>
-//         <li>
-//           <Link to={`${match.url}/components`}>Components</Link>
-//         </li>
-//         <li>
-//           <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-//         </li>
-//       </ul>
-
-//       <Route path={`${match.path}/:topicId`} component={Topic} />
-//       <Route
-//         exact
-//         path={match.path}
-//         render={() => <h3>Please select a topic.</h3>}
-//       />
-//     </div>
-//   );
-// }
-
-// function Topic({ match }) {
-//   return (
-//     <div>
-//       <h3>{match.params.topicId}</h3>
-//     </div>
-//   );
-// }
 
 export default Main;

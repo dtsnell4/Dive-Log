@@ -13,6 +13,11 @@ $primary-color: #0100a2;
 }
 .navbar {
 	background-color: $primary-color !important;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
 	&.navbar-dark {
 		padding: 0;
 	}
@@ -29,6 +34,12 @@ $primary-color: #0100a2;
 	}
 }
 
+.text-shadow {
+	text-shadow: 1px 2px 5px #000;
+}
+.invalid-feedback {
+	display: block;
+}
 
 .add-dive {
 	label {
@@ -74,12 +85,12 @@ $primary-color: #0100a2;
 			min-height: 44px;
 		}
 	}
-}
-.text-shadow {
-	text-shadow: 1px 2px 5px #000;
-}
-.invalid-feedback {
-	display: block;
+	.btn-save-success {
+		position: fixed;
+    	right: 1rem;
+    	z-index: 1;
+    	box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, 0.5);
+	}
 }
 
 .dive-list {

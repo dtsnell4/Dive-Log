@@ -26,12 +26,12 @@ const AddDive = (props) => {
     storeForm,
     nextDiveNumber,
     editting,
+    isUS,
   } = props;
 
   return (
-    <div className="add-dive container mb-5">
-{/*      <div className="background-image" style={{backgroundImage: "url(" + Background + ")"}}></div>
-*/}      <h3 className="mt-2 text-shadow text-white">Enter Dive Info</h3>
+    <div className="add-dive container my-5">
+{/*      <div className="background-image" style={{backgroundImage: "url(" + Background + ")"}}></div>*/}      
       
 
       <Formik
@@ -56,6 +56,9 @@ const AddDive = (props) => {
           signature,
         }) => (
           <Form>
+            <h3 className="mt-2 text-shadow text-white">Enter Dive Info
+              <Button className="btn-save-success" color="success" type="submit" disabled={submitting}>Save</Button>
+            </h3>
             <FormGroup>
               <Label for="diveNumber">Dive Number</Label>
               {!diveData.diveNumber && !editting && <input  className="bubble form-control" value="Getting next dive number..." disabled />}
@@ -90,35 +93,35 @@ const AddDive = (props) => {
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveMaxDepth">Maximum Depth</Label>
-              <Field className="bubble form-control" type="number" name="diveMaxDepth" id="diveMaxDepth" />
+              <Field className="bubble form-control" type="number" name="diveMaxDepth" id="diveMaxDepth" placeholder={isUS ? "Feet" : "Meters"} />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveSafetyStop">Safety Stop</Label>
-              <Field className="bubble form-control" type="text" name="diveSafetyStop" id="diveSafetyStop" />
+              <Field className="bubble form-control" type="text" name="diveSafetyStop" id="diveSafetyStop" placeholder="Minutes/Depth" />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveStartPressure">Start Pressure</Label>
-              <Field className="bubble form-control" type="number" name="diveStartPressure" id="diveStartPressure" />
+              <Field className="bubble form-control" type="number" name="diveStartPressure" id="diveStartPressure" placeholder={isUS ? "PSI" : "BAR"} />
             </FormGroup>
             <FormGroup>
               <Label for="diveStartPressure">End Pressure</Label>
-              <Field className="bubble form-control" type="number" name="diveEndPressure" id="diveEndPressure" />
+              <Field className="bubble form-control" type="number" name="diveEndPressure" id="diveEndPressure" placeholder={isUS ? "PSI" : "BAR"} />
             </FormGroup>
             <FormGroup>
               <Label for="diveVisibility">Visibility</Label>
-              <Field className="bubble form-control" label="" type="text" name="diveVisibility" id="diveVisibility" placeholder="Visibility" />
+              <Field className="bubble form-control" label="" type="text" name="diveVisibility" id="diveVisibility" placeholder={isUS ? "Feet" : "Meters"} />
             </FormGroup>
             <FormGroup>
               <Label for="diveAirTemp">Air Temperature</Label>
-              <Field className="bubble form-control" type="text" name="diveAirTemp" id="diveAirTemp" placeholder="Air Temperature" />
+              <Field className="bubble form-control" type="text" name="diveAirTemp" id="diveAirTemp" placeholder={isUS ? "Farenheit" : "Celcius"} />
             </FormGroup>
             <FormGroup>
               <Label for="diveSurfaceTemp">Surface Temperature</Label>
-              <Field className="bubble form-control" type="text" name="diveSurfaceTemp" id="diveSurfaceTemp" placeholder="Surface Temperature" />
+              <Field className="bubble form-control" type="text" name="diveSurfaceTemp" id="diveSurfaceTemp" placeholder={isUS ? "Farenheit" : "Celcius"} />
             </FormGroup>
             <FormGroup>
               <Label for="diveBottomTemp">Bottom Temperature</Label>
-              <Field className="bubble form-control" type="text" name="diveBottomTemp" id="diveBottomTemp" placeholder="Bottom Temperature" />
+              <Field className="bubble form-control" type="text" name="diveBottomTemp" id="diveBottomTemp" placeholder={isUS ? "Farenheit" : "Celcius"} />
             </FormGroup>
 
             <div>
@@ -274,11 +277,11 @@ const AddDive = (props) => {
             </FormGroup>
             <FormGroup>
               <Label for="diveWeight">Weight</Label>
-              <Field className="bubble form-control" type="text" name="diveWeight" id="diveWeight" placeholder="Weight" />
+              <Field className="bubble form-control" type="text" name="diveWeight" id="diveWeight" placeholder={isUS ? "lbs" : "kg"} />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveTankSize">Tank Size</Label>
-              <Field className="bubble form-control" type="number" name="diveTankSize" id="diveTankSize" />
+              <Field className="bubble form-control" type="number" name="diveTankSize" id="diveTankSize" placeholder={isUS ? "cu.ft." : "liters"}/>
             </FormGroup>
             <FormGroup>
               <RadioButtonGroup id="diveTankType" label="Tank Type" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup}>
@@ -324,7 +327,7 @@ const AddDive = (props) => {
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveSurf">Surf/Wave Height</Label>
-              <Field className="bubble form-control" label="Surf/Wave Height" type="number" name="diveSurf" id="diveSurf" />
+              <Field className="bubble form-control" label="Surf/Wave Height" type="number" name="diveSurf" id="diveSurf" placeholder={isUS ? "Feet" : "Meters"} />
             </FormGroup>
             <FormGroup>
               <RadioButtonGroup id="diveSurge" label="Surge" value={values.radioGroup} error={errors.radioGroup} touched={touched.radioGroup} >
@@ -521,13 +524,11 @@ const AddDive = (props) => {
                       <Col xs={6}>
                         <Field component={RadioButton} name="diveBuddyType" id="diveInstructor" label="Instructor" />
                       </Col>
-                      {(values.diveBuddyType === "Divemaster" || values.diveBuddyType === "Instructor") &&
-                        <Col xs={6}>
-                          <FormGroup>
-                            <Field className="bubble form-control" name="diveBuddyCert" id="diveBuddyCert" placeholder="Certification No." />
-                          </FormGroup>
-                        </Col>
-                      }
+                      <Col xs={6}>
+                        <FormGroup>
+                          <Field className="bubble form-control" name="diveBuddyCert" id="diveBuddyCert" placeholder="Certification No." />
+                        </FormGroup>
+                      </Col>
                     </Row>
                   </RadioButtonGroup>
                 </FormGroup>

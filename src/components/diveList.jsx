@@ -16,7 +16,7 @@ const DiveListComponent = (props) => {
   } = props;
 
   return (
-    <div className="pl-3 pb-3 pr-3 pt-2 dive-list">
+    <div className="px-3 pb-3 mt-5 dive-list">
       <div className="background-image" style={{backgroundImage: "url(" + Background + ")"}}></div>
       <h3 className="text-shadow text-white">My Dives
         <div className="float-right">

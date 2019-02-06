@@ -1,11 +1,13 @@
 TODO:
 
 + View all your dives on a map, select pin to view dive details.
-+ Search for dives by number, location
 + Cumulative total bottom time
 + Current surface interval, calculate curent date, time minus last dive date, out time
-+ Pick units on first open.  Use settings icon to change later.
++ Use settings icon to change later.
 + visibility: range slider
++ Utilities: 
+    * new FormData
+    * LocalForage.iterate
 
 There are two key points for avoiding mutations in Redux:
 

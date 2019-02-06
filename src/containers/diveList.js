@@ -11,6 +11,7 @@ class DiveListComponent extends React.Component {
       diveList: [],
       dropdownOpen: false,
       sortBy: 'number',
+      listMessage: '',
     };
 
     this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -48,9 +49,9 @@ class DiveListComponent extends React.Component {
       // Search for location name
       const storedDiveData = []; 
       LocalForage.iterate(function(value, key, iterationNumber) {
-        const location = value.diveData.diveLocation.toLowerCase()
+        const location = value.diveLocation.toLowerCase()
         if (location.includes(term.toLowerCase())) {
-          const value2 = {number: parseInt(value.diveData.diveNumber), location: value.diveData.diveLocation, date: value.diveData.diveDate};
+          const value2 = {number: parseInt(value.diveNumber), location: value.diveLocation, date: value.diveDate};
           storedDiveData.push(value2);
         }
       }).then(function() {
@@ -71,7 +72,7 @@ class DiveListComponent extends React.Component {
     } else {
       LocalForage.getItem(term).then(function(value) {
         if (value) {
-          const value2 = {number: parseInt(value.diveData.diveNumber), location: value.diveData.diveLocation, date: value.diveData.diveDate};
+          const value2 = {number: parseInt(value.diveNumber), location: value.diveLocation, date: value.diveDate};
           console.log(value2)
           that.setState({ diveList: [value2] });
         } else {
@@ -90,7 +91,8 @@ class DiveListComponent extends React.Component {
   	const that = this;
     const storedDiveData = []; 
 		LocalForage.iterate(function(value, key, iterationNumber) {
-	    const value2 = {number: parseInt(value.diveData.diveNumber), location: value.diveData.diveLocation, date: value.diveData.diveDate};
+      if (!value.diveNumber) return;
+	    const value2 = {number: parseInt(value.diveNumber), location: value.diveLocation, date: value.diveDate};
 	    storedDiveData.push(value2);
 		}).then(function() {
   		storedDiveData.sort(Utilities.sortByParam(that.state.sortBy));
