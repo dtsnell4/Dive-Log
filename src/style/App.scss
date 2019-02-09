@@ -1,6 +1,11 @@
 @import './font-awesome.min.css';
 
 $primary-color: #0100a2;
+$btn-box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, 0.5);
+$details-gray: #444;
+$white: #fff;
+$details-bg: #fbf9f1;
+$diagram-border: 2px solid $details-gray;
 
 .background-image {
 	position: fixed;
@@ -53,11 +58,11 @@ $primary-color: #0100a2;
 	    margin-top: -10px;
 		z-index: 1000;
 		border-radius: 4px;
-		box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, 0.5);
+		box-shadow: $btn-box-shadow;
 		&::after {
 			content: " ";
 			position: absolute;
-			top: 100%; /* At the bottom of the tooltip */
+			top: 100%;
 			left: 50%;
 			margin-left: -10px;
 			border-width: 10px;
@@ -70,7 +75,7 @@ $primary-color: #0100a2;
 .add-dive {
 	label {
 		font-weight: 500;
-		color: #fff;
+		color: $white;
 		font-size: 1.25rem;
 		@extend .text-shadow;
 	}
@@ -79,7 +84,7 @@ $primary-color: #0100a2;
 	}
 	.diveNitroxMix::before {
 		content: "%";
-		color: #fff;
+		color: $white;
 	    position: absolute;
 	    right: 28px;
 	    top: 8px;
@@ -115,20 +120,18 @@ $primary-color: #0100a2;
 		position: fixed;
     	right: 1rem;
     	z-index: 1;
-    	box-shadow: 1px 2px 8px 0px rgba(0, 0, 0, 0.5);
+    	box-shadow: $btn-box-shadow;
 	}
 }
 
 .dive-list {
-	// background-color: #71c4e8;
 	.list-group-item {
 	    padding: 0.75rem .9rem;
 		a {
 			color: inherit;
 		}
 		.dive-date {
-			// font-size: .75rem;
-			color: #777777;
+			color: #777;
 		}
 		&:first-child {
 		    border-top-left-radius: 0rem;
@@ -150,11 +153,11 @@ $primary-color: #0100a2;
 }
 
 .dive-details {
-	background-color: #fbf9f1;
+	background-color: $details-bg;
 	color: #797979;
 	label {
 		font-weight: 500;
-		color: #444;
+		color: $details-gray;
 		margin-bottom: 0;
 	}
 	.btn-edit {
@@ -165,7 +168,7 @@ $primary-color: #0100a2;
 	.diagram-box {
 		position: relative;
 	    display: inline-block;
-		border: 1px solid #444;
+		border: 1px solid $details-gray;
 	    padding: 10px 3px 0;
 	    min-width: 50px;
 	    min-height: 40px;
@@ -177,8 +180,8 @@ $primary-color: #0100a2;
 			left: 5px;
 			padding: 0 3px;
 			font-size: .7rem;
-			color: #444;
-			background-color: #fbf9f1;
+			color: $details-gray;
+			background-color: $details-bg;
 		}
 		i.fa {
 		    position: absolute;
@@ -196,7 +199,7 @@ $primary-color: #0100a2;
 		padding: 0 5px;
 		max-width: 80px;
 		div:last-child {
-			border-top: 1px solid #444;
+			border-top: 1px solid $details-gray;
 		}
 	}
 	.diagram {
@@ -206,16 +209,16 @@ $primary-color: #0100a2;
   			transform: skew(-10deg,0deg);
 		}
 		.first {
-			border-top:2px solid #444;
+			border-top:$diagram-border;
 			margin-left: -9px;
 		}
 		.second {
-			border-left: 2px solid #444;
-			border-right: 2px solid #444;
-			border-bottom: 2px solid #444;
+			border-left: $diagram-border;
+			border-right: $diagram-border;
+			border-bottom: $diagram-border;
 		}
 		.third {
-			border-top: 2px solid #444;
+			border-top: $diagram-border;
 		}
 		.max-depth {
 			position:absolute;
@@ -223,7 +226,7 @@ $primary-color: #0100a2;
 			right: 10px;
 			text-align: center;
 			label {
-				border-top: 1px solid #444;
+				border-top: 1px solid $details-gray;
 				font-size: .9rem;
 			}
 		}
@@ -236,7 +239,7 @@ $primary-color: #0100a2;
 				text-align: center;
 			}
 			label {
-				border-top: 1px solid #444;
+				border-top: 1px solid $details-gray;
 				font-size: .9rem;
 			}
 		}
@@ -244,13 +247,13 @@ $primary-color: #0100a2;
 			text-align: center;
 			float: left;
 			label {
-				border-top: 1px solid #444;
+				border-top: 1px solid $details-gray;
 				font-size: .9rem;
 			}
 		}
 	}
 	.block {
-		border: 2px solid #444;
+		border: $diagram-border;
 		margin: 1rem 0 2rem 0;
 		padding: .25rem;
 		position: relative;
@@ -260,8 +263,8 @@ $primary-color: #0100a2;
 	    top: -0.8rem;
 	    left: 0.5rem;
 	    position: absolute;
-	    background-color: #fbf9f1;
-	    color: #444;
+	    background-color: $details-bg;
+	    color: $details-gray;
 	    font-size: 0.9rem;
 	    padding: 0 5px;
 	}
@@ -270,7 +273,7 @@ $primary-color: #0100a2;
 	}
 	.signature {
 		padding: 20px 20px 5px 20px;
-		border-bottom: 1px solid #444;
+		border-bottom: 1px solid $details-gray;
 		min-height: 70px;
 		img {
 			width: 100%;
@@ -287,7 +290,7 @@ $primary-color: #0100a2;
 	    transition: all .5s;
 	    width: 0;
 	    opacity: 0;
-	    color: #fff;
+	    color: $white;
 	    z-index: 1;
 	    &:focus {
 	    	width: 207px;
@@ -310,20 +313,13 @@ $primary-color: #0100a2;
 .collapse .bubble, 
 .collapsing .bubble,
 .signature-image.bubble {
-    -webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
 	border-radius: 20px;
-	
-    -webkit-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2), inset 0px 5px 30px 2px rgba(255, 255, 255, 1);
-	-moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2), inset 0px 5px 30px 2px rgba(255, 255, 255, 1);
 	box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2), inset 0px 5px 30px 2px rgba(255, 255, 255, 1);
-	
-	background-color: rgba(255,255,255,0);
+	background-color: transparent;
 	border: 1px solid rgba(255, 255, 255, .5);
-    -webkit-background-clip: padding-box; /* for Safari */
-    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+    background-clip: padding-box;
 
-    color: #fff;
+    color: $white;
 
     &::placeholder {
     	color: #c5c5c5;
@@ -357,29 +353,18 @@ $primary-color: #0100a2;
 
 .custom-checkbox, .custom-radio {
 	.custom-control-input ~ .custom-control-label::before {
-	    -webkit-border-radius: 30%;
-		-moz-border-radius: 30%;
 		border-radius: 30%;
-		
-		-webkit-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2), inset 0px 5px 30px 2px rgba(255, 255, 255, 1);
-		-moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2), inset 0px 5px 30px 2px rgba(255, 255, 255, 1);
 		box-shadow: 0 15px 10px rgba(0, 0, 0, 0.2), inset 0px 5px 30px 2px rgba(255, 255, 255, 1);
 
-		// -moz-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2), inset 0px 3px 11px 0px rgba(255, 255, 255, 1);
-		// box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2), inset 0px 3px 11px 0px rgba(255, 255, 255, 1);
-	 //    -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2), inset 0px 3px 11px 0px rgba(255, 255, 255, 1);
-		
-		background-color: rgba(255,255,255,0);
+		background-color: transparent;
 		border: 1px solid rgba(255, 255, 255, .5);
-	    -webkit-background-clip: padding-box; /* for Safari */
-	    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	    background-clip: padding-box;
 	}
 
 	.custom-control-input:checked ~ .custom-control-label::before {
 	    background-color: transparent;
 	}
 	.custom-control-input:checked ~ .custom-control-label::after {
-	    // background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='4' fill='%2300f'/%3E%3C/svg%3E");
 		left: -2rem;
 		width: 2rem;
 	    height: 2rem;
@@ -387,12 +372,9 @@ $primary-color: #0100a2;
 }
 .custom-radio {
 	.custom-control-input ~ .custom-control-label::before {
-	    -webkit-border-radius: 50%;
-		-moz-border-radius: 50%;
 		border-radius: 50%
 	}
 	.custom-control-input:checked ~ .custom-control-label::after {
-	    // background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='4' fill='%2300f'/%3E%3C/svg%3E");
 		left: -2.5rem;
 	}
 	.custom-control-label::before {
@@ -406,7 +388,7 @@ $primary-color: #0100a2;
     height: 100px;
 	width: 100px;
 	color: #000;
-    border-color: #fff;
+    border-color: $white;
     font-size: 2rem;
     font-weight: 700;
     background-color: transparent;
@@ -415,12 +397,12 @@ $primary-color: #0100a2;
     }
 }
 .save-dive-button.bubble:after {
-    background: -moz-radial-gradient(center, ellipse farthest-corner,  rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0.5)), color-stop(70%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse farthest-corner,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse farthest-corner,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse farthest-corner,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* IE10+ */
-    background: radial-gradient(ellipse at center,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* W3C */
+    background: -moz-radial-gradient(center, ellipse farthest-corner,  rgba(255,255,255,0.5) 0%, transparent 70%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0.5)), color-stop(70%,transparent)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse farthest-corner,  rgba(255,255,255,0.5) 0%,transparent 70%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse farthest-corner,  rgba(255,255,255,0.5) 0%,transparent 70%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse farthest-corner,  rgba(255,255,255,0.5) 0%,transparent 70%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(255,255,255,0.5) 0%,transparent 70%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
 	border-radius: 50%;
@@ -433,7 +415,7 @@ $primary-color: #0100a2;
 }
 
 .timepicker {
-	color: #fff;
+	color: $white;
 	position: relative;
 	.position-absolute {
 	    margin-top: -2rem;
@@ -442,7 +424,7 @@ $primary-color: #0100a2;
 			border: none;
 			width: 30px;
 			background: none;
-			color: #fff;
+			color: $white;
 			&:first-child {
 				text-align: right;
 				width: 25px;
@@ -537,12 +519,12 @@ $primary-color: #0100a2;
 	}
 
 	.bubble:after {
-	    background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%); /* FF3.6+ */
-	    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0.5)), color-stop(70%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
-	    background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* Chrome10+,Safari5.1+ */
-	    background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* Opera 12+ */
-	    background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* IE10+ */
-	    background: radial-gradient(ellipse at center,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* W3C */
+	    background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%, transparent 70%); /* FF3.6+ */
+	    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0.5)), color-stop(70%,transparent)); /* Chrome,Safari4+ */
+	    background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,transparent 70%); /* Chrome10+,Safari5.1+ */
+	    background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,transparent 70%); /* Opera 12+ */
+	    background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,transparent 70%); /* IE10+ */
+	    background: radial-gradient(ellipse at center,  rgba(255,255,255,0.5) 0%,transparent 70%); /* W3C */
 	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
 		border-radius: 50%;
