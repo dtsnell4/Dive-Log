@@ -10,6 +10,7 @@ const HomeComponent = (props) => {
   	totalBt,
   	totalDives,
   	lastDive,
+  	now = new Date(),
   } = props;
   console.log(props)
 	return (
@@ -52,12 +53,25 @@ const HomeComponent = (props) => {
   			<div className="mt-5">
 	  			<div className="pt-5">Number of Dives Logged: {totalDives}</div>
 	  			<div>Total Bottom Time Logged: {totalBt}</div>
+	  			<div>Current Surface Interval: <Moment fromNow>{lastDive.date}</Moment></div>
 	  			<h6 className="mt-5">Last Dive:</h6>
 	  			<div>Number: {lastDive.number}</div>
 	  			<div>Date: <Moment parse="YYY/MM/DD" format="M/D/YYYY" date={lastDive.date} /></div>
 	  			<div>Location: {lastDive.location}</div>
   			</div>
   		}
+  		<div id="background-wrap">
+		    <div class="bubble x1"></div>
+		    <div class="bubble x2"></div>
+		    <div class="bubble x3"></div>
+		    <div class="bubble x4"></div>
+		    <div class="bubble x5"></div>
+{/*		    <div class="bubble x6"></div>
+		    <div class="bubble x7"></div>
+		    <div class="bubble x8"></div>
+		    <div class="bubble x9"></div>
+		    <div class="bubble x10"></div>*/}
+		</div>
 	  </div>
 	)
 };

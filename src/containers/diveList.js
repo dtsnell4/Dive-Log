@@ -49,6 +49,7 @@ class DiveListComponent extends React.Component {
       // Search for location name
       const storedDiveData = []; 
       LocalForage.iterate(function(value, key, iterationNumber) {
+        if (!value.diveLocation) return;
         const location = value.diveLocation.toLowerCase()
         if (location.includes(term.toLowerCase())) {
           const value2 = {number: parseInt(value.diveNumber), location: value.diveLocation, date: value.diveDate};

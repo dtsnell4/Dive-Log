@@ -20,7 +20,7 @@ const DiveListComponent = (props) => {
       <div className="background-image" style={{backgroundImage: "url(" + Background + ")"}}></div>
       <h3 className="text-shadow text-white">My Dives
         <div className="float-right">
-          <form className="d-inline-block" id="search" onSubmit={onSearch}>
+          <form className="d-inline-block" id="search" onSubmit={onSearch} autoComplete="off">
             <input className="form-control bg-dark form-control-sm" type="text" name="search" id="sdfs" placeholder="Search location or number" aria-label="Search" />
             <i className="fa fa-search" aria-hidden="true"></i>
           </form>

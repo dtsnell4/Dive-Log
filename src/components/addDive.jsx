@@ -55,7 +55,7 @@ const AddDive = (props) => {
           isValidating,
           signature,
         }) => (
-          <Form>
+          <Form autoComplete="off">
             <h3 className="mt-2 text-shadow text-white">Enter Dive Info
               <Button className="btn-save-success" color="success" type="submit" disabled={submitting}>Save</Button>
             </h3>
@@ -72,7 +72,7 @@ const AddDive = (props) => {
             </FormGroup>
             <FormGroup>
               <Label for="diveLocation">Location/Site</Label>
-              <Field className="bubble form-control" label="" type="text" name="diveLocation" id="diveLocation" placeholder="Dive Site Name" />
+              <Field className="bubble form-control" label="" autoComplete="on" type="text" name="diveLocation" id="diveLocation" placeholder="Dive Site Name" />
               <ErrorMessage name="diveLocation">{msg => <div className="invalid-feedback">{msg}</div>}</ErrorMessage>
             </FormGroup>
             <FormGroup>
@@ -89,7 +89,7 @@ const AddDive = (props) => {
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveBottomTime">Bottom Time</Label>
-              <Field className="bubble form-control" type="number" name="diveBottomTime" id="diveBottomTime" />
+              <Field className="bubble form-control" type="number" name="diveBottomTime" id="diveBottomTime" placeholder="Minutes" />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="diveMaxDepth">Maximum Depth</Label>
@@ -505,7 +505,7 @@ const AddDive = (props) => {
 
             <FormGroup>
               <Label for="diveBuddy">Buddy</Label>
-              <Field className="bubble form-control" label="" type="text" name="diveBuddy" id="diveBuddy" placeholder="Dive Buddy Name" />
+              <Field className="bubble form-control" label="" type="text" name="diveBuddy" id="diveBuddy" autoComplete="on" placeholder="Dive Buddy Name" />
             </FormGroup>
             {values.diveBuddy &&
               <div>

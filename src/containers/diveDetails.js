@@ -11,13 +11,11 @@ class DiveDetailsComponent extends React.Component {
     this.state = {
       dive: {},
     };
-    // this.handleSaveData = this.handleSaveData.bind(this);
-  	console.log(match);
   }
 
   componentWillMount() {
   	const that = this;
-
+console.log(this)
 		LocalForage.getItem(this.props.match.params.divenum).then(function(value) {
 		  that.setState({ dive: value }, function () {
 	    });
@@ -25,11 +23,19 @@ class DiveDetailsComponent extends React.Component {
 		    // This code runs if there were any errors
 	    console.log('Error: ', err);
 		});
+    LocalForage.getItem('settings').then(function(value) {
+      that.setState({ isUS: value.units === 'US' }, function () {
+        console.log(that.state.units)
+      });
+    }).catch(function(err) {
+        // This code runs if there were any errors
+      console.log('Error: ', err);
+    });
 
   }
 
 	render() {
-    return <DiveDetailsPresentational {...this.state} />;
+    return <DiveDetailsPresentational units={this.state.isUS} {...this.state} />;
   }
 }
 

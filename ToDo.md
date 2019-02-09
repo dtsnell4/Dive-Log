@@ -1,8 +1,7 @@
 TODO:
 
 + View all your dives on a map, select pin to view dive details.
-+ Cumulative total bottom time
-+ Current surface interval, calculate curent date, time minus last dive date, out time
++ Toastr to enforce validation.
 + Use settings icon to change later.
 + visibility: range slider
 + Utilities: 

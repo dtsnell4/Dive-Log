@@ -19,6 +19,7 @@ class Home extends React.Component {
 	    },
 	    lastDive: {
       	date: '',
+        timeOut: '',
       	location: '',
       	number: 0,
       }
@@ -47,11 +48,13 @@ class Home extends React.Component {
       const length = keys.length;
       lastDive = parseInt(keys[length - 2]);
       LocalForage.getItem(lastDive.toString()).then(function(value) {
-      	// const lastDate = 
+      	const lastDate = value.diveDate + " " + value.diveTimeOut;
+        console.log(lastDate);
         that.setState({ 
           lastDive: {
-          	date: value.diveDate,
+          	date: value.diveDate + " " + value.diveTimeOut,
           	location: value.diveLocation,
+            last: value.diveTimeOut,
           	number: lastDive - 1,
           }
         });    

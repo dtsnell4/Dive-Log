@@ -1,14 +1,16 @@
 import React from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import Moment from 'react-moment';
+import Tooltip from './common/tooltip'
 
 const DiveDetails = (props) => {
   const {
-    dive
+    dive,
+    isUS,
   } = props;
 
   return (
-    <div className="container py-3 dive-details">
+    <div className="container py-5 dive-details">
       {Object.keys(dive).length > 0 &&
         <div>
           <Button className="btn-edit" color="success" size="sm">Edit</Button>
@@ -16,42 +18,50 @@ const DiveDetails = (props) => {
             <span><label>Dive No.</label> <u>{dive.diveNumber}</u></span>
             <span className="float-right"><label>Date:</label> <u><Moment format="M/D/YYYY" date={dive.diveDate} /></u></span>
           </div>
-          
           <h4><label>Location:</label> <u>{dive.diveLocation}</u></h4>
 
           <div className="dive-profile">
             <Row className="mt-5">
                 <Col xs={5} className="text-right">
-                  <span className="diagram-box text-center">
-                    <label>SI</label>
-                    {dive.diveSurfaceInterval}
-                  </span>
-                  <span className="diagram-box text-center">
-                    <label>PG</label>
-                    {dive.diveStartPressureGroup}
-                  </span>
+                  <Tooltip message="Surface Interval" width="3.9rem">
+                    <span className="diagram-box text-center">
+                      <label>SI</label>
+                      <i className="fa fa-question-circle text-danger"></i>
+                      {dive.diveSurfaceInterval}
+                    </span>
+                  </Tooltip>
+                  <Tooltip message="Starting Pressure Group">
+                    <span className="diagram-box text-center">
+                      <label>PG</label>
+                      <i className="fa fa-question-circle text-danger"></i>
+                      {dive.diveStartPressureGroup}
+                    </span>
+                  </Tooltip>
                 </Col>
                 <Col xs={3}>
                 </Col>
                 <Col xs={4}>
-                  <span className="diagram-box text-center">
-                    <label>PG</label>
-                    {dive.diveEndPressureGroup}
-                  </span>
+                  <Tooltip message="Ending Pressure Group" width="8rem">
+                    <span className="diagram-box text-center">
+                      <label>PG</label>
+                      <i className="fa fa-question-circle text-danger"></i>
+                      {dive.diveEndPressureGroup}
+                    </span>
+                  </Tooltip>
                 </Col>
             </Row>
             <div className="diagram">
               <Row>
                 <Col xs={4} className="first">
                   <div className="max-depth">
-                    <div>{dive.diveMaxDepth}</div>
+                    <div>{dive.diveMaxDepth}{isUS ? "ft" : "m"}</div>
                     <label>Max Depth</label>
                   </div>
                 </Col>
                 <Col xs={4} className="second">
                   <div className="bottom-time">
                     <div>
-                      <div>{dive.diveBottomTime}</div>
+                      <div>{dive.diveBottomTime}min</div>
                       <label>Bottom Time</label>
                     </div>
                   </div>
@@ -192,13 +202,13 @@ const DiveDetails = (props) => {
             <Row>
               <Col>
                 <div><label>Water Type:</label> <u>{dive.diveWaterType}</u></div>
-                <div><label>Air Temp:</label> <u>{dive.diveAirTemp}</u></div>
-                <div><label>Surface Temp:</label> <u>{dive.diveSurfaceTemp}</u></div>
-                <div><label>Bottom Temp:</label> <u>{dive.diveBottomTemp}</u></div>
+                <div><label>Air Temp:</label> <u>{dive.diveAirTemp}{isUS ? "°F" : "°C"}</u></div>
+                <div><label>Surface Temp:</label> <u>{dive.diveSurfaceTemp}{isUS ? "°F" : "°C"}</u></div>
+                <div><label>Bottom Temp:</label> <u>{dive.diveBottomTemp}{isUS ? "°F" : "°C"}</u></div>
               </Col>
               <Col>
-                <div><label>Visibility:</label> <u>{dive.diveVisibility}</u></div>
-                <div><label>Surf/Seas:</label> <u>{dive.diveSurf}</u></div>
+                <div><label>Visibility:</label> <u>{dive.diveVisibility}{isUS ? "ft" : "m"}</u></div>
+                <div><label>Surf/Seas:</label> <u>{dive.diveSurf}{isUS ? "ft" : "m"}</u></div>
                 <div><label>Current:</label> <u>{dive.diveCurrent}</u></div>
                 <div><label>Surge:</label> <u>{dive.diveSurge}</u></div>
               </Col>
@@ -206,18 +216,18 @@ const DiveDetails = (props) => {
           </div>
 
           <h4>Equipment</h4>
-          <div><label>Weight:</label> <u>{dive.diveWeight}</u></div>
+          <div><label>Weight:</label> <u>{dive.diveWeight}{isUS ? "lbs" : "kg"}</u></div>
           <div className="block">
             <div className="before-block">Tank</div>
             <Row>
               <Col>
                 <div><label>Tank Type:</label> <u>{dive.diveTankType ? dive.diveTankType : "Steel"}</u></div>
-                <div><label>Tank Size:</label> <u>{dive.diveTankSize}</u></div>
+                <div><label>Tank Size:</label> <u>{dive.diveTankSize}{isUS ? "cu.ft." : "l"}</u></div>
                 <div><label>Gas:</label> <u>{dive.diveGasType}</u></div>
               </Col>
               <Col>
-                <div><label>Start Pressure:</label> <u>{dive.diveStartPressure}</u></div>
-                <div><label>End Pressure:</label> <u>{dive.diveEndPressure}</u></div>
+                <div><label>Start Pressure:</label> <u>{dive.diveStartPressure}{isUS ? "psi" : "bar"}</u></div>
+                <div><label>End Pressure:</label> <u>{dive.diveEndPressure}{isUS ? "psi" : "bar"}</u></div>
                 <div><label>Mix:</label> <u>{dive.diveNitroxMix}%</u></div>
               </Col>
             </Row>
