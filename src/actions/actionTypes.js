@@ -1,4 +1,0 @@
-export const SAVE_DIVE= 'SAVE_DIVE';
-export const STORE_FORM_DATA= 'STORE_FORM_DATA';
-export const LOAD_DATA_SUCCESS= 'LOAD_DATA_SUCCESS';
-export const GET_NEXT_DIVE= 'GET_NEXT_DIVE';
