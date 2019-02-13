@@ -5,9 +5,8 @@ import DiveDetailsPresentational from '../components/diveDetails';
 class DiveDetailsComponent extends React.Component {
   constructor(props) {
     super(props);
-    const {
-    	match,
-    } = props;
+    // const {
+    // } = props;
     this.state = {
       dive: {},
     };
@@ -15,23 +14,17 @@ class DiveDetailsComponent extends React.Component {
 
   componentWillMount() {
   	const that = this;
-console.log(this)
 		LocalForage.getItem(this.props.match.params.divenum).then(function(value) {
 		  that.setState({ dive: value }, function () {
 	    });
 		}).catch(function(err) {
-		    // This code runs if there were any errors
 	    console.log('Error: ', err);
 		});
     LocalForage.getItem('settings').then(function(value) {
-      that.setState({ isUS: value.units === 'US' }, function () {
-        console.log(that.state.units)
-      });
+      that.setState({ isUS: value.units === 'US' });
     }).catch(function(err) {
-        // This code runs if there were any errors
       console.log('Error: ', err);
     });
-
   }
 
 	render() {

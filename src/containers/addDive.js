@@ -6,8 +6,6 @@ import storeFormData from '../actions/formDataActions';
 import AddDivePresentational from '../components/addDive';
 import moment from 'moment';
 
-// import * as Utilities from '../utilities/utilities';
-
 class AddDiveComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -40,8 +38,6 @@ class AddDiveComponent extends React.Component {
           diveNumber: settings.nextDiveNumber ? settings.nextDiveNumber : 1,
         },
         isUS: settings.units === "US"
-      }, function () {
-        console.log(that.state)
       });
     }).catch(function(err) {
       console.log('Error: ', err);
@@ -51,46 +47,11 @@ class AddDiveComponent extends React.Component {
     if (match.params.divenum) {
       LocalForage.getItem(this.props.match.params.divenum).then(function(value) {
         value.editting = match.params.divenum;
-        console.log(value)
         that.setState(value, function () {
         });
       }).catch(function(err) {
         console.log('Error: ', err);
       });
-//     //Add new dive
-//     } else {
-//       const that = this;
-//       LocalForage.keys().then(function(keys) {
-//         let nextDive = null;
-//         if (keys.length) {
-//           function sortNumber(a,b) {
-//             return a - b;
-//           }
-//           keys.sort(sortNumber);
-//           const length = keys.length;
-//           nextDive = parseInt(keys[length - 1]) + 1;
-//         } else {
-//           nextDive = 1;
-//         }
-// // debugger
-//         const lastDive = nextDive - 1;
-//         LocalForage.getItem(lastDive.toString()).then(function(value) {
-//           const bttm = value.totalBottomTime;
-//           that.setState({ 
-//             nextDiveNumber: nextDive, 
-//             totalBottomTime: bttm ? bttm : "",
-//             diveData: {
-//               diveNumber: nextDive,
-//             } 
-//           });    
-//         }).catch(function(err) {
-//             // This code runs if there were any errors
-//           console.log('Error: ', err);
-//         });
-
-//       }).catch(function(err) {
-//         console.log('Error: Cannot find last dive number :', err);
-//       });
     }
 
     // Bind functions

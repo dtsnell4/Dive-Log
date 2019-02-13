@@ -44,7 +44,6 @@ class DiveListComponent extends React.Component {
     }
     // Search for dive number
     const that = this;
-    console.log(parseInt(term), typeof parseInt(term))
     if (isNaN(parseInt(term))) {
       // Search for location name
       const storedDiveData = []; 
@@ -74,7 +73,6 @@ class DiveListComponent extends React.Component {
       LocalForage.getItem(term).then(function(value) {
         if (value) {
           const value2 = {number: parseInt(value.diveNumber), location: value.diveLocation, date: value.diveDate};
-          console.log(value2)
           that.setState({ diveList: [value2] });
         } else {
           that.setState({ 

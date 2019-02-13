@@ -11,7 +11,6 @@ class SignaturePad extends React.Component {
 
 	    this.clear = this.clear.bind(this);
 	    this.trim = this.trim.bind(this);
-	    console.log(this)
 	}
 
 	clear = () => {

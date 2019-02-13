@@ -1,11 +1,6 @@
 import React from 'react';
-// import { bindActionCreators } from 'redux';
-// import { connect } from 'react-redux';
 import LocalForage from 'localforage';
-// import saveSettings from '../actions/settingsActions';
 import HomePresentational from '../components/home';
-import moment from 'moment';
-// import * as Utilities from '../utilities/utilities';
 
 class Home extends React.Component {
   constructor(props) {
@@ -48,8 +43,6 @@ class Home extends React.Component {
       const length = keys.length;
       lastDive = parseInt(keys[length - 2]);
       LocalForage.getItem(lastDive.toString()).then(function(value) {
-      	const lastDate = value.diveDate + " " + value.diveTimeOut;
-        console.log(lastDate);
         that.setState({ 
           lastDive: {
           	date: value.diveDate + " " + value.diveTimeOut,
@@ -67,11 +60,6 @@ class Home extends React.Component {
     });
 
     this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-	}
-
-	onChange = (e) => {
-		console.log(this.state)
 	}
 
 	onSubmit = (e) => {
@@ -89,7 +77,6 @@ class Home extends React.Component {
 	  }
 
   	LocalForage.setItem('settings', settings);
-    // this.props.saveSettings(settings);
     this.setState(prevState => ({
     	settings: settings,
     }));
@@ -97,7 +84,6 @@ class Home extends React.Component {
 
   render() {
     return <HomePresentational 
-    	onChange={this.onChange} 
     	onSubmit={this.onSubmit} 
     	units={this.state.settings.units} 
     	totalDives={this.state.settings.nextDiveNumber - 1} 
@@ -108,17 +94,3 @@ class Home extends React.Component {
 }
 
 export default Home;
-
-// function mapStateToProps(state) {
-//   return {
-//     units: state.units
-//   };
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//     saveSettings: saveSettings
-//   }, dispatch);
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)( Home );
